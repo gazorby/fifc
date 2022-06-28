@@ -1,15 +1,11 @@
-##################
 # Keybindings
-##################
 for mode in default insert
     if not set --query --universal fzf_complete_keybinding
-        bind --mode $mode \t 'fzf_complete'
+        bind --mode $mode \t '_fzf_complete'
     else
-        bind --mode $mode $fzf_complete_keybinding 'fzf_complete'
+        bind --mode $mode $fzf_complete_keybinding '_fzf_complete'
     end
 end
-
-# fzf
 
 if not set --query --universal fzf_complete_open_keybinding
     set --universal fzf_complete_open_keybinding 'ctrl-o'
@@ -20,86 +16,55 @@ if not set --query --universal fzf_complete_search_keybinding
 end
 
 
-##################
-# File
-##################
-set -q -U fzf_complete_file_preview; or set -U fzf_complete_file_preview _fzf_complete_file_preview
-if not set --query --universal fzf_complete_file_preview
-    set --universal fzf_complete_file_preview _fzf_complete_file_preview
-end
-
-if not set --query --universal fzf_complete_file_open
-    set --universal fzf_complete_file_open _fzf_complete_file_open
-end
-
-if not set --query --universal fzf_complete_file_editor
-    set --universal fzf_complete_file_editor vim
-end
-
-##################
-# Directory
-##################
-if not set --query --universal fzf_complete_dir_preview
-    set --universal fzf_complete_dir_preview _fzf_complete_dir_preview
-end
-
-if not set --query --universal fzf_complete_dir_open
-    set --universal fzf_complete_dir_open _fzf_complete_dir_open
-end
-
-if not set --query --universal fzf_complete_dir_search
-    set --universal fzf_complete_dir_search _fzf_complete_dir_search
-end
-
-##################
-# Command
-##################
-if not set --query --universal fzf_complete_cmd_preview
-    set --universal fzf_complete_cmd_preview _fzf_complete_cmd_preview
-end
-
-if not set --query --universal fzf_complete_cmd_open
-    set --universal fzf_complete_cmd_open _fzf_complete_cmd_open
-end
-
-##################
-# Functions
-##################
-if not set --query --universal fzf_complete_fn_preview
-    set --universal fzf_complete_fn_preview _fzf_complete_fn_preview
-end
-
-if not set --query --universal fzf_complete_fn_open
-    set --universal fzf_complete_fn_open _fzf_complete_fn_open
-end
-
-##################
-# Command options
-##################
-if not set --query --universal fzf_complete_opt_preview
-    set --universal fzf_complete_opt_preview _fzf_complete_opt_preview
-end
-
-if not set --query --universal fzf_complete_opt_open
-    set --universal fzf_complete_opt_open _fzf_complete_opt_open
-end
-
-# Regex used to extract option description from man pages
-if not set --query --universal fzf_complete_opt_preview_regex
-    set --universal fzf_complete_opt_preview_regex '^\h*(-+(\w|-|,|\h)*)*%s(\h+|,|\\\\n{1,2}|=).*?(?=(^\\\\n(^\h*(-+(\w|-|,|\h)*))*)+)'
-end
-
-# Regex used to open man page starting on the option description
-if not set --query --universal fzf_complete_opt_open_regex
-    set --universal fzf_complete_opt_open_regex '^\h*(-+(\w|-|,| )*)*%s'
-end
-
-##################
 # Private
-##################
+set -Ux _fzf_complete_comp_count 0
+set -gx _fzf_complete_unordered_comp
+set -gx _fzf_complete_ordered_comp
 
-set -U _fzf_complete_complist_sep ' / '
 
-function uninstall --on-event fish_fzf_complete_uninstall
+# Builtin completions
+fzf_complete \
+    -r '\w+\h+\-+\h*$' \
+    -p '_fzf_complete_preview_opt' \
+    -o '_fzf_complete_open_opt'
+fzf_complete \
+    -c 'test -n "$desc"; and type -q -f -- "$candidate"' \
+    -r '^(?!\w+\h+)' \
+    -p '_fzf_complete_preview_cmd' \
+    -o '_fzf_complete_open_cmd'
+fzf_complete \
+    -c 'test -n "$desc"' \
+    -r '^functions\h+|^\h+' \
+    -p '_fzf_complete_preview_fn' \
+    -o '_fzf_complete_open_fn'
+fzf_complete \
+    -c 'test -f "$candidate"' \
+    -p '_fzf_complete_preview_file' \
+    -o '_fzf_complete_open_file'
+fzf_complete \
+    -c 'test -d "$candidate"' \
+    -p '_fzf_complete_preview_dir' \
+    -o '_fzf_complete_open_dir'
+
+fzf_complete -c 'test -n "$desc"' -p 'echo "$desc"'
+
+
+# Fisher
+function _fzf_complete_install --on-event fish_fzf_complete_install
+    set -U _fzf_complete_complist_sep ' / '
+end
+
+function _fzf_complete_uninstall --on-event fish_fzf_complete_uninstall
     set -e _fzf_complete_complist_sep
+
+    for i in (seq (count $_fzf_complete_unordered_comp))
+        set -e $_fzf_complete_unordered_comp[$i]
+    end
+
+    for i in (seq (count $_fzf_complete_ordered_comp))
+        set -e $_fzf_complete_ordered_comp[$i]
+    end
+
+    set -e _fzf_complete_unordered_comp
+    set -e _fzf_complete_ordered_comp
 end
