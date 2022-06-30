@@ -81,7 +81,10 @@ function _fifc_uninstall --on-event fifc_uninstall
         set -e $_fifc_ordered_comp[$i]
     end
 
+    set -e _fifc_comp_count
+    set -e _fifc_source_count
     set -e _fifc_unordered_comp
     set -e _fifc_ordered_comp
-    set -e _fifc_comp_count
+    set -e _fifc_unordered_sources
+    set -e _fifc_ordered_sources
 end
