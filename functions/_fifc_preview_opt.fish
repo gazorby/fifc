@@ -1,4 +1,4 @@
-function _fzf_complete_preview_opt -d "Open man page of a command starting at the selected option"
+function _fifc_preview_opt -d "Open man page of a command starting at the selected option"
     set -l opt (string trim --chars '\n ' -- "$candidate")
     set -l regex "^\h*(-+[^\n]*)*$opt([^\-\w\.]([^\.\n]|\.{2,})*|)\n{1,2}.*?(?=^(\n|\h*(-+[^\n]*))+)"
     # Enable dotall matching for pcregrep
@@ -13,9 +13,9 @@ function _fzf_complete_preview_opt -d "Open man page of a command starting at th
             | rg --multiline --multiline-dotall --pcre2 $regex \
         )
     else if type -q pcre2grep
-        set out (man $cmd 2>/dev/null | string trim | pcregrep --multiline $regex_pcre)
-    else
         set out (man $cmd 2>/dev/null | string trim | pcre2grep --multiline $regex_pcre)
+    else
+        set out (man $cmd 2>/dev/null | string trim | pcregrep --multiline $regex_pcre)
     end
     # Pretty printing
     set_color brgreen; echo -e "$out[1]"

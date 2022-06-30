@@ -1,30 +1,35 @@
-function _fzf_complete
+function _fifc
     set -l fish_version (string split -- '.' $FISH_VERSION)
     set -l complist
     set -l result
-    set -Ux _fzf_complete_current_token (commandline --current-token)
+    set -gx _fifc_group
+    # Need to be universal as it's set in another fish instance
+    set -Ux _fifc_extract
+    set -gx _fifc_complist
+    set -gx _fifc_commandline
+    set -gx _fifc_current_token (commandline --current-token)
 
     # Get commandline buffer
     if test "$argv" = ""
-        set -U _fzf_complete_commandline (commandline --cut-at-cursor)
+        set _fifc_commandline (commandline --cut-at-cursor)
     else
-        set -U _fzf_complete_commandline $argv
+        set _fifc_commandline $argv
     end
 
-    set -l query $_fzf_complete_commandline
+    set -l query $_fifc_commandline
 
     # Get completion list
     # --escape is only available on fisher 3.4+
     if test $fish_version[2] -ge 4
-        set complist (complete -C --escape $_fzf_complete_commandline)
+        set complist (complete -C --escape $_fifc_commandline)
     else
-        set complist (complete -C $_fzf_complete_commandline)
+        set complist (complete -C $_fifc_commandline)
     end
 
     # Split using '/' as it can't be used in filenames
-    set -gx _fzf_complete_complist (string join -- ' / ' $complist)
+    set -gx _fifc_complist (string join -- ' / ' $complist)
 
-    if string match --quiet --regex -- '\w+ +-+ *$' "$_fzf_complete_commandline"
+    if string match --quiet --regex -- '\w+ +-+ *$' "$_fifc_commandline"
         set -e query
     else
         # Set intial query to the last token from commandline buffer
@@ -34,7 +39,8 @@ function _fzf_complete
 
     # We use eval hack because wrapping source command
     # inside a function cause some delay before fzf to show up
-    set -l source_cmd (_fzf_complete_source_cmd)
+    # set -l source_cmd (_fifc_source_cmd)
+    set -l source_cmd (_fifc_action source)
     set -l fzf_cmd "
         fzf \
             -d \t \
@@ -47,18 +53,25 @@ function _fzf_complete
             --multi \
             --reverse \
             --header '$header' \
-            --preview '_fzf_complete_action preview {}' \
-            --bind='$fzf_complete_open_keybinding:execute(_fzf_complete_action open {} &> /dev/tty)' \
+            --preview '_fifc_action preview {}' \
+            --bind='$fifc_open_keybinding:execute(_fifc_action open {} &> /dev/tty)' \
             --query '$query'"
 
     set -l cmd (string join -- " | " $source_cmd $fzf_cmd)
-    eval $cmd | while read --local token; set -a result $token; end
+
+    # Perform extraction if needed
+    eval $cmd | while read -l token
+        set -a result $token
+        if test -n "$_fifc_extract"
+            set result[-1] (string match --regex --groups-only "$_fifc_extract" "$token")
+        end
+    end
 
     # Add space trailing space only if:
     # - there is no trailing space already present
     # - Result is not a directory
     if test (count $result) -eq 1; and not test -d $result[1]
-        set -l buffer (string split -- "$_fzf_complete_commandline" (commandline -b))
+        set -l buffer (string split -- "$_fifc_commandline" (commandline -b))
         if not string match -- ' *' "$buffer[2]"
             set -a result ''
         end
@@ -71,8 +84,9 @@ function _fzf_complete
     commandline --function repaint
 
     # Clean state
-    set -e result
-    set -e _fzf_complete_complist
-    set -e _fzf_complete_commandline
-    set -e _fzf_complete_current_token
+    set -e _fifc_group
+    set -e _fifc_extract
+    set -e _fifc_complist
+    set -e _fifc_commandline
+    set -e _fifc_current_token
 end

@@ -1,27 +1,30 @@
-function _fzf_complete_action
-    # Can be either "preview" or "action"
+function _fifc_action
+    # Can be either "preview", "action" or "source"
     set -l action $argv[1]
     set -l regex_val (string escape --style=regex -- $argv[2])
     set -l desc ( \
-        _fzf_complete_complist_split \
+        _fifc_split_complist \
         | string match --regex --groups-only -- "$regex_val\h+(.*)" \
         | string trim \
     )
-    set -l comp $_fzf_complete_ordered_comp $_fzf_complete_unordered_comp
+    set -l comp $_fifc_ordered_comp $_fifc_unordered_comp
 
     if test "$action" = "preview"
         set default_preview 1
+    else if test "$action" = "source"
+        set comp $_fifc_ordered_sources $_fifc_unordered_sources
+        set default_source 1
     end
 
     for i in (seq (count $comp))
         set -l conditions
         set -l valid 1
-
         begin
             # Variables exposed to evaluated commands
             set -lx candidate $argv[2]
-            set -lx commandline $_fzf_complete_commandline
+            set -lx commandline $_fifc_commandline
             set -lx desc $desc
+            set -lx group (_fifc_completion_group)
 
             if test -n "$$comp[$i][1]"
                 set -a conditions "$$comp[$i][1]"
@@ -41,12 +44,22 @@ function _fzf_complete_action
                 continue
             end
 
-            if test "$action" = "preview"; and test -n $$comp[$i][3]
+            set _fifc_extract "$$comp[$i][5]"
+
+            if test "$action" = "preview"; and test -n "$$comp[$i][3]"
                 eval $$comp[$i][3]
                 set default_preview 0
                 break
-            else if test "$action" = "open"; and test -n $$comp[$i][4]
+            else if test "$action" = "open"; and test -n "$$comp[$i][4]"
                 eval $$comp[$i][4]
+                break
+            else if test "$action" = "source"; and test -n "$$comp[$i][3]"
+                if functions "$$comp[$i][3]" 1>/dev/null
+                    eval $$comp[$i][3]
+                else
+                    echo $$comp[$i][3]
+                end
+                set default_source 0
                 break
             end
         end
@@ -56,5 +69,7 @@ function _fzf_complete_action
     # fallback to fish description
     if test "$default_preview" = "1"
         echo "$desc"
+    else if test "$default_source" = "1"
+        echo "_fifc_parse_complist"
     end
 end
