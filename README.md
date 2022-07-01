@@ -1,0 +1,2 @@
+# fifc
+FIsh Fzf Completion
