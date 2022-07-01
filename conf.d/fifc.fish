@@ -35,7 +35,7 @@ fifc \
 
 # Builtin preview/open commands
 fifc \
-    -r '\h+\-+\h*$' \
+    -n 'test "$group" = "options"' \
     -p _fifc_preview_opt \
     -o _fifc_open_opt
 fifc \
