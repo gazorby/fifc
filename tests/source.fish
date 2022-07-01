@@ -18,7 +18,7 @@ set actual (_fifc_action "source")
 
 set _fifc_commandline "foo "
 set actual (_fifc_action "source")
-@test "source fallback fish suggestions" "$actual" = "_fifc_parse_complist"
+@test "source fallback fish suggestions" "$actual" = _fifc_parse_complist
 
 set -e _fifc_commandline
 set -gx _fifc_unordered_sources $curr_fifc_unordered_sources

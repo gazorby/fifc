@@ -5,7 +5,7 @@ function __fifc_check_flag -d "Check flag value for fifc"
                 echo "$_argparse_cmd: Order must be a positive integer"
                 return 1
             end
-        # Ensure regex is valid
+            # Ensure regex is valid
         case r regex
             set -l out (string match --regex --quiet $_flag_value 2>&1 | string join '\n')
             if test -n "$out"
@@ -18,14 +18,14 @@ function fifc -d "Add your own fish fzf completions"
     set -l option_spec 'n/condition=' 'p/preview=' 'o/open=' 's/source=' 'e/extract='
     set -a option_spec 'r/regex=!__fifc_check_flag' 'O/order=!__fifc_check_flag'
 
-    argparse --name 'fifc' $option_spec -- $argv
+    argparse --name fifc $option_spec -- $argv
 
-    if test "$status" != "0"
+    if test "$status" != 0
         return 1
     end
 
     if test \( -n "$_flag_n" -o -n "$_flag_r" \) \
-        -a \( -z "$_flag_p" -a -z "$_flag_o" -a -z "$_flag_s" -a -z "$_flag_e" \)
+            -a \( -z "$_flag_p" -a -z "$_flag_o" -a -z "$_flag_s" -a -z "$_flag_e" \)
 
         echo "fifc: You have not specified any binding (preview, open, source or extract)"
         return 1

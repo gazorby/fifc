@@ -7,21 +7,21 @@ function _fifc_file_type -d "Figure out file type (txt, json, image, archive, bi
 
     switch $mime
         case application/{gzip,java-archive,x-{7z-compressed,bzip2,chrome-extension,rar,tar,xar},zip}
-            echo "archive"
+            echo archive
             return
         case "image/*"
-            echo "image"
+            echo image
             return
     end
 
-    if test $binary = "1"
-        echo "binary"
+    if test $binary = 1
+        echo binary
     else
         switch $mime
             case application/json
-                echo "json"
+                echo json
             case "*"
-                echo "txt"
+                echo txt
         end
     end
 end

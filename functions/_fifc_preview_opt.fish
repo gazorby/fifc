@@ -7,7 +7,7 @@ function _fifc_preview_opt -d "Open man page of a command starting at the select
 
     # PCRE is needed as regex has lookaround
     if type -q rg
-         set out ( \
+        set out ( \
             man $cmd 2>/dev/null \
             | string trim \
             | rg --multiline --multiline-dotall --pcre2 $regex \
@@ -24,7 +24,9 @@ function _fifc_preview_opt -d "Open man page of a command starting at the select
     end
 
     # Pretty printing
-    set_color brgreen; echo -e "$out[1]"
-    set_color --bold white; echo -e (string join -- "\n" "" $out[2..-1])
+    set_color brgreen
+    echo -e "$out[1]"
+    set_color --bold white
+    echo -e (string join -- "\n" "" $out[2..-1])
     set_color normal
 end

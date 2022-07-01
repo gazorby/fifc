@@ -9,9 +9,9 @@ function _fifc_action
     )
     set -l comp $_fifc_ordered_comp $_fifc_unordered_comp
 
-    if test "$action" = "preview"
+    if test "$action" = preview
         set default_preview 1
-    else if test "$action" = "source"
+    else if test "$action" = source
         set comp $_fifc_ordered_sources $_fifc_unordered_sources
         set default_source 1
     end
@@ -46,14 +46,14 @@ function _fifc_action
 
             set _fifc_extract "$$comp[$i][5]"
 
-            if test "$action" = "preview"; and test -n "$$comp[$i][3]"
+            if test "$action" = preview; and test -n "$$comp[$i][3]"
                 eval $$comp[$i][3]
                 set default_preview 0
                 break
-            else if test "$action" = "open"; and test -n "$$comp[$i][4]"
+            else if test "$action" = open; and test -n "$$comp[$i][4]"
                 eval $$comp[$i][4]
                 break
-            else if test "$action" = "source"; and test -n "$$comp[$i][3]"
+            else if test "$action" = source; and test -n "$$comp[$i][3]"
                 if functions "$$comp[$i][3]" 1>/dev/null
                     eval $$comp[$i][3]
                 else
@@ -67,9 +67,9 @@ function _fifc_action
 
     # We are in preview mode, but nothing matched
     # fallback to fish description
-    if test "$default_preview" = "1"
+    if test "$default_preview" = 1
         echo "$desc"
-    else if test "$default_source" = "1"
-        echo "_fifc_parse_complist"
+    else if test "$default_source" = 1
+        echo _fifc_parse_complist
     end
 end

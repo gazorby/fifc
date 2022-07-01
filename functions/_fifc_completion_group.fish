@@ -5,9 +5,9 @@ function _fifc_completion_group -d "Determine completion group"
     set -l parsed_complist (_fifc_parse_complist)
 
     if test -n "$is_null"
-        and ls -d -- $parsed_complist &> /dev/null
-        echo "files"
+        and ls -d -- $parsed_complist &>/dev/null
+        echo files
     else if _fifc_parse_complist | string join '' | string match --regex --quiet '^[0-9]+$'
-        echo "pid"
+        echo pid
     end
 end
