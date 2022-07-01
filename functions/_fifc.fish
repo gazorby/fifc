@@ -61,7 +61,7 @@ function _fifc
 
     # Perform extraction if needed
     eval $cmd | while read -l token
-        set -a result (string escape $token)
+        set -a result (string escape -- $token)
         if test -n "$_fifc_extract"
             set result[-1] (string match --regex --groups-only "$_fifc_extract" "$token")
         end
