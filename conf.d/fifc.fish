@@ -1,18 +1,18 @@
 # Keybindings
 for mode in default insert
     if not set --query --universal fifc_keybinding
-        bind --mode $mode \t '_fifc'
+        bind --mode $mode \t _fifc
     else
-        bind --mode $mode $fifc_keybinding '_fifc'
+        bind --mode $mode $fifc_keybinding _fifc
     end
 end
 
 if not set --query --universal fifc_open_keybinding
-    set --universal fifc_open_keybinding 'ctrl-o'
+    set --universal fifc_open_keybinding ctrl-o
 end
 
 if not set --query --universal fifc_search_keybinding
-    set --universal fifc_search_keybinding 'ctrl-f'
+    set --universal fifc_search_keybinding ctrl-f
 end
 
 
@@ -28,7 +28,7 @@ set -gx _fifc_ordered_sources
 # Set sources
 fifc \
     -n 'test "$group" = "files"' \
-    -s '_fifc_source_files'
+    -s _fifc_source_files
 fifc \
     -n 'test "$group" = "pid"' \
     -s 'ps --no-headers -ax --format pid,command'
@@ -36,30 +36,30 @@ fifc \
 # Builtin preview/open commands
 fifc \
     -r '\h+\-+\h*$' \
-    -p '_fifc_preview_opt' \
-    -o '_fifc_open_opt'
+    -p _fifc_preview_opt \
+    -o _fifc_open_opt
 fifc \
     -n 'test -n "$desc"; and type -q -f -- "$candidate"' \
     -r '^(?!\w+\h+)' \
-    -p '_fifc_preview_cmd' \
-    -o '_fifc_open_cmd'
+    -p _fifc_preview_cmd \
+    -o _fifc_open_cmd
 fifc \
     -n 'test -n "$desc"' \
     -r '^functions\h+|^\h+' \
-    -p '_fifc_preview_fn' \
-    -o '_fifc_open_fn'
+    -p _fifc_preview_fn \
+    -o _fifc_open_fn
 fifc \
     -n 'test -f "$candidate"' \
-    -p '_fifc_preview_file' \
-    -o '_fifc_open_file'
+    -p _fifc_preview_file \
+    -o _fifc_open_file
 fifc \
     -n 'test -d "$candidate"' \
-    -p '_fifc_preview_dir' \
-    -o '_fifc_open_dir'
+    -p _fifc_preview_dir \
+    -o _fifc_open_dir
 fifc \
     -n 'test "$group" = "pid" -a (ps -p (_fifc_parse_pid "$candidate") &>/dev/null)' \
-    -p '_fifc_preview_process' \
-    -o '_fifc_open_process' \
+    -p _fifc_preview_process \
+    -o _fifc_open_process \
     -e '^\h*([0-9]+)'
 
 fifc -n 'test -n "$desc"' -p 'echo "$desc"'

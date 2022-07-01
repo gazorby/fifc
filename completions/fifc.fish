@@ -1,4 +1,4 @@
-complete fifc --long condition --short -n  --description "Command or fish function to be evaluated"
+complete fifc --long condition --short -n --description "Command or fish function to be evaluated"
 complete fifc --long regex --short r --description "Regex matching the part of the commandline before cursor"
 complete fifc --long extract --short e --description "Regex applied on the sele cted candidate(s) to extract string to bo appended to the commandline (using capture groups)"
 complete fifc --long order --short O --description "Order in which this rule must be evaluated"
