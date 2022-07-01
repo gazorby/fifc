@@ -1,22 +1,22 @@
 function _fifc_preview_opt -d "Open man page of a command starting at the selected option"
-    set -l opt (string trim --chars '\n ' -- "$candidate")
-    set -l regex "^\h*(-+[^\n]*)*$opt([^\-\w\.]([^\.\n]|\.{2,})*|)\n{1,2}.*?(?=^(\n|\h*(-+[^\n]*))+)"
-    # Enable dotall matching for pcregrep
-    set -l regex_pcre (string join -- '' '(?s)' $regex)
+    set -l regex "(?s)^(\-+[^\n]+)*$candidate([^\-\w\.]([^\.\n]|\.{2,}|\w+\.)*|)\n{1,2}.*?(^(\-+[^\n]+|\w+))"
+    set -l regex_replace '^\h+(\-+[^\n]+.*)'
     set -l cmd (string match --regex --groups-only -- '(\w+) ?-*' $commandline)
 
-    # PCRE is needed as regex has lookaround
-    if type -q rg
-        set out ( \
-            man $cmd 2>/dev/null \
-            | string trim \
-            | rg --multiline --multiline-dotall --pcre2 $regex \
-        )
-    else if type -q pcre2grep
-        set out (man $cmd 2>/dev/null | string trim | pcre2grep --multiline $regex_pcre)
-    else
-        set out (man $cmd 2>/dev/null | string trim | pcregrep --multiline $regex_pcre)
-    end
+    set out (man $cmd 2>/dev/null | string replace -r $regex_replace '$1' \
+        | begin
+            if type -q rg
+                rg --multiline $regex
+            else if type -q pcre2grep
+                pcre2grep --multiline $regex
+            else
+                pcregrep --multiline $regex
+            end
+        end \
+        # Remove last line as it should describes the next option
+        | head -n -1 \
+        | string trim \
+    )
 
     # Fallback to fish description if there is no man page
     if test -z "$out"
