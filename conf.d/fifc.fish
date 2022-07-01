@@ -30,7 +30,7 @@ fifc \
     -n 'test "$group" = "files"' \
     -s _fifc_source_files
 fifc \
-    -n 'test "$group" = "pid"' \
+    -n 'test "$group" = processes' \
     -s 'ps --no-headers -ax --format pid,command'
 
 # Builtin preview/open commands
@@ -57,7 +57,7 @@ fifc \
     -p _fifc_preview_dir \
     -o _fifc_open_dir
 fifc \
-    -n 'test "$group" = "pid" -a (ps -p (_fifc_parse_pid "$candidate") &>/dev/null)' \
+    -n 'test "$group" = processes -a (ps -p (_fifc_parse_pid "$candidate") &>/dev/null)' \
     -p _fifc_preview_process \
     -o _fifc_open_process \
     -e '^\h*([0-9]+)'

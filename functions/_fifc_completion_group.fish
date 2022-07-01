@@ -9,6 +9,6 @@ function _fifc_completion_group -d "Determine completion group"
     else if string match --regex --quiet -- '\h+\-+\h*$' $_fifc_commandline
         echo options
     else if _fifc_parse_complist | string join '' | string match --regex --quiet '^[0-9]+$'
-        echo pid
+        echo processes
     end
 end
