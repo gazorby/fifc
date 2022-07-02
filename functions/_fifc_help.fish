@@ -111,8 +111,10 @@ function _fifc_help -d "Print fifc help message"
     __fifc_help_print -e -l2 -- "- Interactively search packages on archlinux:\n"
     set_color white
     __fifc_help_print --no-color -e -l2 -- \
-        "  fifc -r '^(pacman|paru|yay)\h+\w+' \\ \n" \
-        "    -s 'pacman --color=always -Ss \$fifc_current_token | string match -r \"^[^\h+].*\"' \\ \n" \
-        "    -e '.*/(.*?)\h.*' \\ \n" \
-        "    -f '--query \"\"'"
+        "  fifc \\ \n" \
+        "  -r '^pacman(\h*\-S)?\h+\w+' \\ \n" \
+        "  -s 'pacman --color=always -Ss "\$fifc_current_token" | string match -r \"^[^\h+].*\"' \\ \n" \
+        "  -e '.*/(.*?)\h.*' \\ \n" \
+        "  -f '--query \"\"' \\ \n" \
+        "  -p 'pacman -Si (string match -g -r \".*/(.*?)\h.*\" \$candidate)' \\"
 end
