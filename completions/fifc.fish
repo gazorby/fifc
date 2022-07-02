@@ -4,3 +4,4 @@ complete fifc --long extract --short e --description "Regex applied on the sele 
 complete fifc --long order --short O --description "Order in which this rule must be evaluated"
 complete fifc --long preview --short p --description "Preview command to be evaluated on the current candidate"
 complete fifc --long open --short o --description "Open command to be evaluated on the current candidate"
+complete fifc --long fzf-options --short f --description "Custom fzf options"

@@ -84,6 +84,11 @@ function _fifc_help -d "Print fifc help message"
         "The order in which the rule is evaluated." \
         "If missing, the rule will be evaluated after all ordered ones, and all unordered rules defined before."
 
+
+    __fifc_help_opt \
+        "-f, --fzf-options" \
+        "Custom fzf options (can override previous ones)"
+
     __fifc_help_opt \
         "-h, --help" \
         "Show this help"
@@ -107,6 +112,7 @@ function _fifc_help -d "Print fifc help message"
     set_color white
     __fifc_help_print --no-color -e -l2 -- \
         "  fifc -r '^(pacman|paru|yay)\h+\w+' \\ \n" \
-        "    -s 'pacman --color=always -Ss \$token | string match -r \"^[^\h+].*\"' \\ \n" \
-        "    -e '.*/(.*?)\h.*'"
+        "    -s 'pacman --color=always -Ss \$fifc_current_token | string match -r \"^[^\h+].*\"' \\ \n" \
+        "    -e '.*/(.*?)\h.*' \\ \n" \
+        "    -f '--query \"\"'"
 end

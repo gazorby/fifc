@@ -15,7 +15,7 @@ function __fifc_check_flag -d "Check flag value for fifc"
 end
 
 function fifc -d "Add your own fish fzf completions"
-    set -l option_spec 'n/condition=' 'p/preview=' 'o/open=' 's/source=' 'e/extract=' 'h/help'
+    set -l option_spec 'n/condition=' 'p/preview=' 'o/open=' 's/source=' 'e/extract=' 'f/fzf-options=' h/help
     set -a option_spec 'r/regex=!__fifc_check_flag' 'O/order=!__fifc_check_flag'
 
     argparse --name fifc $option_spec -- $argv
@@ -30,7 +30,7 @@ function fifc -d "Add your own fish fzf completions"
     end
 
     if test \( -n "$_flag_n" -o -n "$_flag_r" \) \
-            -a \( -z "$_flag_p" -a -z "$_flag_o" -a -z "$_flag_s" -a -z "$_flag_e" \)
+            -a \( -z "$_flag_p" -a -z "$_flag_o" -a -z "$_flag_s" -a -z "$_flag_e" -a -z "$_flag_f" \)
 
         echo "fifc: You have not specified any binding (preview, open, source or extract)"
         return 1
@@ -42,7 +42,7 @@ function fifc -d "Add your own fish fzf completions"
     if test -n "$_flag_s"
         set _fifc_source_count (math $_fifc_source_count + 1)
         set -l count $_fifc_source_count
-        set -Ux "_fifc_source_$count" "$_flag_n" "$_flag_r" "$_flag_s"
+        set -Ux "_fifc_source_$count" "$_flag_n" "$_flag_r" "$_flag_s" "$_flag_f"
 
         if test -z "$_flag_O"
             set -a _fifc_unordered_sources "_fifc_source_$count"
