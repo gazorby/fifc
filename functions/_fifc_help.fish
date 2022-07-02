@@ -116,5 +116,5 @@ function _fifc_help -d "Print fifc help message"
         "  -s 'pacman --color=always -Ss "\$fifc_token" | string match -r \"^[^\h+].*\"' \\ \n" \
         "  -e '.*/(.*?)\h.*' \\ \n" \
         "  -f '--query \"\"' \\ \n" \
-        "  -p 'pacman -Si (string match -g -r \".*/(.*?)\h.*\" \$fifc_candidate)' \\"
+        "  -p 'pacman -Si "\$fifc_extracted"' \\"
 end
