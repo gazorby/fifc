@@ -90,10 +90,23 @@ function _fifc_help -d "Print fifc help message"
 
     __fifc_help_print -e "Exemples:\n"
     __fifc_help_print -e -l2 -- "- Preview file using bat (already builtin):\n"
-    __fifc_help_print -e -l2 -- '  fifc -n \'test -f "$candidate"\' -p "bat --color=always $candidate"'
+    set_color white
+    __fifc_help_print --no-color -e -l2 -- \
+        '  fifc -n \'test -f "$candidate"\' -p "bat --color=always $candidate"'
 
     __fifc_help_print -e "\n\n"
 
     __fifc_help_print -e -l2 -- "- Use fd to search files recursively (already builtin):\n"
-    __fifc_help_print -e -l2 -- '  fifc -n \'test "$group" = files\' -s \'fd . --color=always --strip-cwd-prefix\''
+    set_color white
+    __fifc_help_print --no-color -e -l2 -- \
+        '  fifc -n \'test "$group" = files\' -s \'fd . --color=always --strip-cwd-prefix\''
+
+    __fifc_help_print -e "\n\n"
+
+    __fifc_help_print -e -l2 -- "- Interactively search packages on archlinux:\n"
+    set_color white
+    __fifc_help_print --no-color -e -l2 -- \
+        "  fifc -r '^(pacman|paru|yay)\h+\w+' \\ \n" \
+        "    -s 'pacman --color=always -Ss \$token | string match -r \"^[^\h+].*\"' \\ \n" \
+        "    -e '.*/(.*?)\h.*'"
 end
