@@ -7,7 +7,8 @@ function _fifc
     set -Ux _fifc_extract
     set -gx _fifc_complist
     set -gx _fifc_commandline
-    set -gx _fifc_current_token (commandline --current-token)
+    set -Ux _fifc_current_token (commandline --current-token)
+    set -Ux _fifc_custom_fzf_opts
 
     # Get commandline buffer
     if test "$argv" = ""
@@ -55,7 +56,8 @@ function _fifc
             --header '$header' \
             --preview '_fifc_action preview {}' \
             --bind='$fifc_open_keybinding:execute(_fifc_action open {} &> /dev/tty)' \
-            --query '$query'"
+            --query '$query' \
+            $_fifc_custom_fzf_opts"
 
     set -l cmd (string join -- " | " $source_cmd $fzf_cmd)
 

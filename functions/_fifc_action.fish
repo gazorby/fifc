@@ -13,7 +13,7 @@ function _fifc_action
     set -lx group (_fifc_completion_group)
     set -lx candidate $argv[2]
     set -lx commandline $_fifc_commandline
-    set -lx token $_fifc_current_token
+    set -Ux fifc_current_token $_fifc_current_token
 
     if test "$action" = preview
         set default_preview 1
@@ -53,6 +53,7 @@ function _fifc_action
             eval $$comp[$i][4]
             break
         else if test "$action" = source; and test -n "$$comp[$i][3]"
+            set _fifc_custom_fzf_opts "$$comp[$i][4]"
             if functions "$$comp[$i][3]" 1>/dev/null
                 eval $$comp[$i][3]
             else
