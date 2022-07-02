@@ -5,7 +5,7 @@ set fifc_commandline "$_commandline"
 set actual (_fifc_completion_group)
 @test "group test pid" "$actual" = processes
 
-set _commandline "ls tests/_resources/dir with spaces/ "
+set _commandline "ls tests/_resources/dir with spaces/"
 set _fifc_complist (complete -C --escape -- "$_commandline")
 set fifc_commandline "$_commandline"
 set actual (_fifc_completion_group)
