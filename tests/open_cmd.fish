@@ -1,4 +1,4 @@
-set candidate mkdir
+set fifc_candidate mkdir
 set fifc_bat_opts '--color=never'
 
 set actual (_fifc_open_cmd)
