@@ -15,13 +15,18 @@ function __fifc_check_flag -d "Check flag value for fifc"
 end
 
 function fifc -d "Add your own fish fzf completions"
-    set -l option_spec 'n/condition=' 'p/preview=' 'o/open=' 's/source=' 'e/extract='
+    set -l option_spec 'n/condition=' 'p/preview=' 'o/open=' 's/source=' 'e/extract=' 'h/help'
     set -a option_spec 'r/regex=!__fifc_check_flag' 'O/order=!__fifc_check_flag'
 
     argparse --name fifc $option_spec -- $argv
 
     if test "$status" != 0
         return 1
+    end
+
+    if test -n "$_flag_h"
+        _fifc_help
+        return
     end
 
     if test \( -n "$_flag_n" -o -n "$_flag_r" \) \
