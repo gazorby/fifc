@@ -2,11 +2,10 @@ function _fifc
     set -l fish_version (string split -- '.' $FISH_VERSION)
     set -l complist
     set -l result
-    set -gx _fifc_group
-    # Need to be universal as it's set in another fish instance
+    set -Ux _fifc_group
     set -Ux _fifc_extract
-    set -gx _fifc_complist
-    set -gx _fifc_commandline
+    set -Ux _fifc_complist
+    set -Ux _fifc_commandline
     set -Ux _fifc_current_token (commandline --current-token)
     set -Ux _fifc_custom_fzf_opts
 
@@ -91,4 +90,5 @@ function _fifc
     set -e _fifc_complist
     set -e _fifc_commandline
     set -e _fifc_current_token
+    set -e _fifc_custom_fzf_opts
 end

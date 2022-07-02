@@ -37,22 +37,15 @@ function fifc -d "Add your own fish fzf completions"
     end
 
     set _fifc_comp_count (math $_fifc_comp_count + 1)
-
-    # Add source if specified
-    if test -n "$_flag_s"
-        set _fifc_source_count (math $_fifc_source_count + 1)
-        set -l count $_fifc_source_count
-        set -Ux "_fifc_source_$count" "$_flag_n" "$_flag_r" "$_flag_s" "$_flag_f"
-
-        if test -z "$_flag_O"
-            set -a _fifc_unordered_sources "_fifc_source_$count"
-        else
-            set _fifc_ordered_sources[$_flag_O] "_fifc_source_$count"
-        end
-    end
-
     set -l count $_fifc_comp_count
-    set -Ux "_fifc_comp_$count" "$_flag_n" "$_flag_r" "$_flag_p" "$_flag_o" "$_flag_e"
+    set -Ux "_fifc_comp_$count"
+    set -a "_fifc_comp_$count" "$_flag_n"
+    set -a "_fifc_comp_$count" "$_flag_r"
+    set -a "_fifc_comp_$count" "$_flag_p"
+    set -a "_fifc_comp_$count" "$_flag_o"
+    set -a "_fifc_comp_$count" "$_flag_s"
+    set -a "_fifc_comp_$count" "$_flag_f"
+    set -a "_fifc_comp_$count" "$_flag_e"
 
     if test -z "$_flag_O"
         set -a _fifc_unordered_comp "_fifc_comp_$count"

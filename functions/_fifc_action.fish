@@ -18,7 +18,6 @@ function _fifc_action
     if test "$action" = preview
         set default_preview 1
     else if test "$action" = source
-        set comp $_fifc_ordered_sources $_fifc_unordered_sources
         set default_source 1
     end
 
@@ -29,7 +28,7 @@ function _fifc_action
             set -a conditions "$$comp[$i][1]"
         end
         if test -n "$$comp[$i][2]"
-            set -a conditions "string match --regex --quiet -- '$$comp[$i][2]' '$commandline'"
+            set -a conditions "string match --regex --quiet -- '$$comp[$i][2]' '$_fifc_commandline'"
         end
 
         for condition in $conditions
@@ -43,7 +42,7 @@ function _fifc_action
             continue
         end
 
-        set _fifc_extract "$$comp[$i][5]"
+        set _fifc_extract "$$comp[$i][7]"
 
         if test "$action" = preview; and test -n "$$comp[$i][3]"
             eval $$comp[$i][3]
@@ -52,12 +51,12 @@ function _fifc_action
         else if test "$action" = open; and test -n "$$comp[$i][4]"
             eval $$comp[$i][4]
             break
-        else if test "$action" = source; and test -n "$$comp[$i][3]"
-            set _fifc_custom_fzf_opts "$$comp[$i][4]"
-            if functions "$$comp[$i][3]" 1>/dev/null
-                eval $$comp[$i][3]
+        else if test "$action" = source; and test -n "$$comp[$i][5]"
+            set _fifc_custom_fzf_opts "$$comp[$i][6]"
+            if functions "$$comp[$i][5]" 1>/dev/null
+                eval $$comp[$i][5]
             else
-                echo $$comp[$i][3]
+                echo $$comp[$i][5]
             end
             set default_source 0
             break
