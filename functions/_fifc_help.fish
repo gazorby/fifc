@@ -73,7 +73,7 @@ function _fifc_help -d "Print fifc help message"
 
     __fifc_help_opt \
         "-s, --source=COMMAND" \
-        "Command that will feed fzf input if rule is valid"
+        "Command that will feed fzf input if the rule is valid"
 
     __fifc_help_opt \
         "-o, --open=COMMAND" \
@@ -88,8 +88,8 @@ function _fifc_help -d "Print fifc help message"
         "-h, --help" \
         "Show this help"
 
-    __fifc_help_print -e "Exemples:\n"
-    __fifc_help_print -e -l2 -- "- Preview file using bat (already builtin):\n"
+    __fifc_help_print -e "Examples:\n"
+    __fifc_help_print -e -l2 -- "- Preview files using bat (already builtin):\n"
     set_color white
     __fifc_help_print --no-color -e -l2 -- \
         '  fifc -n \'test -f "$candidate"\' -p "bat --color=always $candidate"'
