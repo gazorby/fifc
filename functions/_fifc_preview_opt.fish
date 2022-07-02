@@ -20,7 +20,7 @@ function _fifc_preview_opt -d "Open man page of a command starting at the select
 
     # Fallback to fish description if there is no man page
     if test -z "$out"
-        echo "$desc"
+        echo "$fifc_desc"
     end
 
     # Pretty printing

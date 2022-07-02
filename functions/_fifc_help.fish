@@ -41,7 +41,7 @@ function __fifc_help_opt
     end
     set_color -o white
     set -l desc (string split -- '\n' $argv[2..-1] | string trim)
-    echo -e (__fifc_help_print --no-color -l2 -- $desc)
+    echo -e (__fifc_help_print --no-color -l2 -- $fifc_desc)
     echo ""
     set_color normal
 end

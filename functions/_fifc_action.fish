@@ -5,7 +5,7 @@ function _fifc_action
     set -l comp $_fifc_ordered_comp $_fifc_unordered_comp
 
     # Variables exposed to evaluated commands
-    set -lx desc ( \
+    set -lx fifc_desc ( \
         _fifc_split_complist \
         | string match --regex --groups-only -- "$regex_val\h+(.*)" \
         | string trim \
@@ -65,7 +65,7 @@ function _fifc_action
     # We are in preview mode, but nothing matched
     # fallback to fish description
     if test "$default_preview" = 1
-        echo "$desc"
+        echo "$fifc_desc"
     else if test "$default_source" = 1
         echo _fifc_parse_complist
     end
