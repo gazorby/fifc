@@ -11,10 +11,6 @@ if not set --query --universal fifc_open_keybinding
     set --universal fifc_open_keybinding ctrl-o
 end
 
-if not set --query --universal fifc_search_keybinding
-    set --universal fifc_search_keybinding ctrl-f
-end
-
 
 # Private
 set -Ux _fifc_comp_count 0
