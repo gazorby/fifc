@@ -2,7 +2,7 @@ set actual (_fifc_file_type "tests/_resources/dir with spaces/file 71.txt")
 @test "file type test txt" "$actual" = txt
 
 set actual (_fifc_file_type "tests/_resources/dir with spaces/file.json")
-@test "file type test json" "$actual" = json
+@test "file type test json" "$actual" = json -o "$actual" = txt
 
 set actual (_fifc_file_type "tests/_resources/dir with spaces/fish.png")
 @test "file type test image" "$actual" = image
