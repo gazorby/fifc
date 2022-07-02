@@ -13,6 +13,7 @@ function _fifc_action
     set -lx group (_fifc_completion_group)
     set -lx candidate $argv[2]
     set -lx commandline $_fifc_commandline
+    set -lx token $_fifc_current_token
 
     if test "$action" = preview
         set default_preview 1
