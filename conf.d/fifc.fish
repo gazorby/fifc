@@ -20,7 +20,6 @@ set -gx _fifc_ordered_comp
 set -gx _fifc_unordered_sources
 set -gx _fifc_ordered_sources
 
-
 # Set sources
 fifc \
     -n 'test "$group" = "files"' \
@@ -57,8 +56,6 @@ fifc \
     -p _fifc_preview_process \
     -o _fifc_open_process \
     -e '^\h*([0-9]+)'
-
-fifc -n 'test -n "$desc"' -p 'echo "$desc"'
 
 
 # Fisher
