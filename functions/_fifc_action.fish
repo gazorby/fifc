@@ -10,10 +10,9 @@ function _fifc_action
         | string match --regex --groups-only -- "$regex_val\h+(.*)" \
         | string trim \
     )
-    set -lx group (_fifc_completion_group)
-    set -lx candidate $argv[2]
-    set -lx commandline $_fifc_commandline
-    set -Ux fifc_current_token $_fifc_current_token
+    set -lx fifc_group (_fifc_completion_group)
+    set -lx fifc_candidate $argv[2]
+    set fifc_extracted (string match --regex --groups-only -- "$_fifc_extract_regex" "$argv[2]")
 
     if test "$action" = preview
         set default_preview 1
@@ -28,7 +27,7 @@ function _fifc_action
             set -a conditions "$$comp[$i][1]"
         end
         if test -n "$$comp[$i][2]"
-            set -a conditions "string match --regex --quiet -- '$$comp[$i][2]' '$_fifc_commandline'"
+            set -a conditions "string match --regex --quiet -- '$$comp[$i][2]' '$fifc_commandline'"
         end
 
         for condition in $conditions
@@ -42,7 +41,7 @@ function _fifc_action
             continue
         end
 
-        set _fifc_extract "$$comp[$i][7]"
+        set _fifc_extract_regex "$$comp[$i][7]"
 
         if test "$action" = preview; and test -n "$$comp[$i][3]"
             eval $$comp[$i][3]

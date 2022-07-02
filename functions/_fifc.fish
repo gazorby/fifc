@@ -3,33 +3,34 @@ function _fifc
     set -l complist
     set -l result
     set -Ux _fifc_group
-    set -Ux _fifc_extract
+    set -Ux _fifc_extract_regex
     set -Ux _fifc_complist
-    set -Ux _fifc_commandline
-    set -Ux _fifc_current_token (commandline --current-token)
     set -Ux _fifc_custom_fzf_opts
+    set -Ux fifc_token (commandline --current-token)
+    set -Ux fifc_extracted
+    set -Ux fifc_commandline
 
     # Get commandline buffer
     if test "$argv" = ""
-        set _fifc_commandline (commandline --cut-at-cursor)
+        set fifc_commandline (commandline --cut-at-cursor)
     else
-        set _fifc_commandline $argv
+        set fifc_commandline $argv
     end
 
-    set -l query $_fifc_commandline
+    set -l query $fifc_commandline
 
     # Get completion list
     # --escape is only available on fisher 3.4+
     if test $fish_version[2] -ge 4
-        set complist (complete -C --escape $_fifc_commandline)
+        set complist (complete -C --escape $fifc_commandline)
     else
-        set complist (complete -C $_fifc_commandline)
+        set complist (complete -C $fifc_commandline)
     end
 
     # Split using '/' as it can't be used in filenames
     set -gx _fifc_complist (string join -- ' / ' $complist)
 
-    if string match --quiet --regex -- '\w+ +-+ *$' "$_fifc_commandline"
+    if string match --quiet --regex -- '\w+ +-+ *$' "$fifc_commandline"
         set -e query
     else
         # Set intial query to the last token from commandline buffer
@@ -63,8 +64,8 @@ function _fifc
     # Perform extraction if needed
     eval $cmd | while read -l token
         set -a result (string escape -- $token)
-        if test -n "$_fifc_extract"
-            set result[-1] (string match --regex --groups-only "$_fifc_extract" "$token")
+        if test -n "$_fifc_extract_regex"
+            set result[-1] (string match --regex --groups-only -- "$_fifc_extract_regex" "$token")
         end
     end
 
@@ -72,7 +73,7 @@ function _fifc
     # - there is no trailing space already present
     # - Result is not a directory
     if test (count $result) -eq 1; and not test -d $result[1]
-        set -l buffer (string split -- "$_fifc_commandline" (commandline -b))
+        set -l buffer (string split -- "$fifc_commandline" (commandline -b))
         if not string match -- ' *' "$buffer[2]"
             set -a result ''
         end
@@ -86,9 +87,12 @@ function _fifc
 
     # Clean state
     set -e _fifc_group
-    set -e _fifc_extract
+    set -e _fifc_extract_regex
     set -e _fifc_complist
-    set -e _fifc_commandline
-    set -e _fifc_current_token
     set -e _fifc_custom_fzf_opts
+    set -e fifc_token
+    set -e fifc_group
+    set -e fifc_extracted
+    set -e fifc_candidate
+    set -e fifc_commandline
 end

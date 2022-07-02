@@ -1,7 +1,7 @@
 function _fifc_preview_opt -d "Open man page of a command starting at the selected option"
-    set -l regex "(?s)^(\-+[^\n]+)*$candidate([^\-\w\.]([^\.\n]|\.{2,}|\w+\.)*|)\n{1,2}.*?(^(\-+[^\n]+|\w+))"
+    set -l regex "(?s)^(\-+[^\n]+)*$fifc_candidate([^\-\w\.]([^\.\n]|\.{2,}|\w+\.)*|)\n{1,2}.*?(^(\-+[^\n]+|\w+))"
     set -l regex_replace '^\h+(\-+[^\n]+.*)'
-    set -l cmd (string match --regex --groups-only -- '(\w+) ?-*' $commandline)
+    set -l cmd (string match --regex --groups-only -- '(\w+) ?-*' $fifc_commandline)
 
     set out (man $cmd 2>/dev/null | string replace -r $regex_replace '$1' \
         | begin

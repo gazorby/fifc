@@ -1,5 +1,5 @@
 function _fifc_preview_process -d "Preview process informations"
-    set -l pid (_fifc_parse_pid "$candidate")
+    set -l pid (_fifc_parse_pid "$fifc_candidate")
     set -l err_msg "\nThe process exited"
 
     if type -q procs

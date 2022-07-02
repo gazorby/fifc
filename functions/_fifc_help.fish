@@ -97,14 +97,14 @@ function _fifc_help -d "Print fifc help message"
     __fifc_help_print -e -l2 -- "- Preview files using bat (already builtin):\n"
     set_color white
     __fifc_help_print --no-color -e -l2 -- \
-        '  fifc -n \'test -f "$candidate"\' -p "bat --color=always $candidate"'
+        '  fifc -n \'test -f "$fifc_candidate"\' -p "bat --color=always $fifc_candidate"'
 
     __fifc_help_print -e "\n\n"
 
     __fifc_help_print -e -l2 -- "- Use fd to search files recursively (already builtin):\n"
     set_color white
     __fifc_help_print --no-color -e -l2 -- \
-        '  fifc -n \'test "$group" = files\' -s \'fd . --color=always --strip-cwd-prefix\''
+        '  fifc -n \'test "$fifc_group" = files\' -s \'fd . --color=always --strip-cwd-prefix\''
 
     __fifc_help_print -e "\n\n"
 
@@ -113,8 +113,8 @@ function _fifc_help -d "Print fifc help message"
     __fifc_help_print --no-color -e -l2 -- \
         "  fifc \\ \n" \
         "  -r '^pacman(\h*\-S)?\h+\w+' \\ \n" \
-        "  -s 'pacman --color=always -Ss "\$fifc_current_token" | string match -r \"^[^\h+].*\"' \\ \n" \
+        "  -s 'pacman --color=always -Ss "\$fifc_token" | string match -r \"^[^\h+].*\"' \\ \n" \
         "  -e '.*/(.*?)\h.*' \\ \n" \
         "  -f '--query \"\"' \\ \n" \
-        "  -p 'pacman -Si (string match -g -r \".*/(.*?)\h.*\" \$candidate)' \\"
+        "  -p 'pacman -Si (string match -g -r \".*/(.*?)\h.*\" \$fifc_candidate)' \\"
 end

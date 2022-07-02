@@ -22,19 +22,19 @@ set -gx _fifc_ordered_sources
 
 # Set sources
 fifc \
-    -n 'test "$group" = "files"' \
+    -n 'test "$fifc_group" = "files"' \
     -s _fifc_source_files
 fifc \
-    -n 'test "$group" = processes' \
+    -n 'test "$fifc_group" = processes' \
     -s 'ps --no-headers -ax --format pid,command'
 
 # Builtin preview/open commands
 fifc \
-    -n 'test "$group" = "options"' \
+    -n 'test "$fifc_group" = "options"' \
     -p _fifc_preview_opt \
     -o _fifc_open_opt
 fifc \
-    -n 'test -n "$desc"; and type -q -f -- "$candidate"' \
+    -n 'test -n "$desc"; and type -q -f -- "$fifc_candidate"' \
     -r '^(?!\w+\h+)' \
     -p _fifc_preview_cmd \
     -o _fifc_open_cmd
@@ -44,15 +44,15 @@ fifc \
     -p _fifc_preview_fn \
     -o _fifc_open_fn
 fifc \
-    -n 'test -f "$candidate"' \
+    -n 'test -f "$fifc_candidate"' \
     -p _fifc_preview_file \
     -o _fifc_open_file
 fifc \
-    -n 'test -d "$candidate"' \
+    -n 'test -d "$fifc_candidate"' \
     -p _fifc_preview_dir \
     -o _fifc_open_dir
 fifc \
-    -n 'test "$group" = processes -a (ps -p (_fifc_parse_pid "$candidate") &>/dev/null)' \
+    -n 'test "$fifc_group" = processes -a (ps -p (_fifc_parse_pid "$fifc_candidate") &>/dev/null)' \
     -p _fifc_preview_process \
     -o _fifc_open_process \
     -e '^\h*([0-9]+)'

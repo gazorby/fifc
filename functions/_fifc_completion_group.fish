@@ -6,7 +6,7 @@ function _fifc_completion_group -d "Determine completion group"
 
     if test -n "$is_null"; and ls -d -- $parsed_complist &>/dev/null
         echo files
-    else if string match --regex --quiet -- '\h+\-+\h*$' $_fifc_commandline
+    else if string match --regex --quiet -- '\h+\-+\h*$' $fifc_commandline
         echo options
     else if _fifc_parse_complist | string join '' | string match --regex --quiet '^[0-9]+$'
         echo processes
