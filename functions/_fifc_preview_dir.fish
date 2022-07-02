@@ -1,7 +1,7 @@
 function _fifc_preview_dir -d "List content of the selected directory"
     if type -q exa
-        exa $fifc_exa_opts $fifc_candidate
+        exa --color=always $fifc_exa_opts $fifc_candidate
     else
-        ls --color=always --all $fifc_candidate
+        ls --color=always $fifc_ls_opts $fifc_candidate
     end
 end
