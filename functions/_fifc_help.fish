@@ -1,9 +1,3 @@
-function __fifc_help_section
-    set_color yellow
-    echo -e (string join '' -- (string upper -- "$argv") '\n')
-    set_color normal
-end
-
 function __fifc_help_print
     argparse -s "i/indentation=?" "l/level=?" e/escape no-color -- $argv
     set -l spaces "$_flag_i"
@@ -28,6 +22,11 @@ function __fifc_help_print
     end
 end
 
+function __fifc_help_section
+    set_color yellow
+    __fifc_help_print -e -l0 --no-color (string join -- "" (string upper -- "$argv") "\n")
+    set_color normal
+end
 
 function __fifc_help_opt
     set -l opt (string split -- '=' $argv[1])
@@ -41,7 +40,7 @@ function __fifc_help_opt
     end
     set_color -o white
     set -l desc (string split -- '\n' $argv[2..-1] | string trim)
-    echo -e (__fifc_help_print --no-color -l2 -- $fifc_desc)
+    echo -e (__fifc_help_print --no-color -l2 -- $desc)
     echo ""
     set_color normal
 end
