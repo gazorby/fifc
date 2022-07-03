@@ -14,7 +14,7 @@ function _fifc_preview_file -d "Preview the selected file with the right tool de
             else
                 cat "$fifc_candidate"
             end
-        case image
+        case image pdf
             if type -q chafa
                 chafa $fifc_chafa_opts "$fifc_candidate"
             else

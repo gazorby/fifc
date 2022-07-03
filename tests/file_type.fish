@@ -12,3 +12,6 @@ set actual (_fifc_file_type "tests/_resources/dir with spaces/file.bin")
 
 set actual (_fifc_file_type "tests/_resources/dir with spaces/file.7z")
 @test "file type test archive" "$actual" = archive
+
+set actual (_fifc_file_type "tests/_resources/dir with spaces/file.pdf")
+@test "file type test pdf" "$actual" = pdf
