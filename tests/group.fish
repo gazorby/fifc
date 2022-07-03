@@ -11,7 +11,7 @@ set fifc_commandline "$_commandline"
 set actual (_fifc_completion_group)
 @test "group test files" "$actual" = files
 
-set _commandline "ls --"
+set _commandline "ls -"
 set _fifc_complist (complete -C --escape -- "$_commandline")
 set fifc_commandline "$_commandline"
 set actual (_fifc_completion_group)
