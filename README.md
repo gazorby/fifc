@@ -73,6 +73,8 @@ Show hidden file by default:
 
 Custom rules can easily be added using the `fifc` command. Actually, all builtin rules are added this way: see [conf.d/fifc.fish](https://github.com/gazorby/fifc/blob/52ff966511ea97ed7be79db469fe178784e22fd8/conf.d/fifc.fish)
 
+See `fifc -h` for more details.
+
 Basically, a rule allows you to trigger some commands based on specific conditions.
 
 A condition can be either:
@@ -95,6 +97,39 @@ All commands have access to the following variable describing the completion con
 | `fifc_group`       | Group to which fish suggestions belong (can be either files, options or processes)    | all                  |
 | `fifc_extracted`   | Extracted string from the currently selected item using the `extracted` regex, if any | all except source    |
 
+### Matching order
+
+fifc evaluate all rules in the order in which they have been defined and stops at the first where all conditions are met.
+It does this each time it has to resolve source, preview and open commands.
+
+Take the following scenario:
+
+```fish
+# Rule 1
+fifc -n 'test "$fifc_group" = files' -p 'bat $fifc_candidate'
+# Rule 2
+fifc -n 'string match "*.json" "$fifc_candidate"' -p 'bat -l json $fifc_candidate'
+```
+
+When completing path, `$fifc_group` will be set to "files" so the first rule will always be valid in that case, and the second one will never be reached.
+
+Another example:
+
+```fish
+# Rule 1
+fifc --condition 'test "$fifc_group" = files' --preview 'bat $fifc_candidate'
+# Rule 2
+fifc --condition 'test "$fifc_group" = files' --source 'fd . --color=always --hidden $HOME'
+```
+
+Here, even if both rules have the same conditions, they won't interfere because fifc has to resolve source command *before* the preview command, so order doesn't matter in this case.
+
+### Override builtin rules
+
+If you want to write your own rule based on the same conditions as one of the built-in ones, you can use fifc `--order` option.
+It tells fifc to evaluate the rule in a predefined order, so you can set it to 1 to make sure it will be evaluated first.
+
+When omitting the `--order`, the rule will be declared unordered, and will be evaluated *after* all other ordered rules.
 
 ### Examples
 
