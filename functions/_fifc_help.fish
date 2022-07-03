@@ -75,8 +75,7 @@ function _fifc_help -d "Print fifc help message"
 
     __fifc_help_print -e -n \
         "Rule are evaluated in the order in which they are defined,"
-        "and fifc will stop at the first rule where all conditions are met" \
-
+    "and fifc will stop at the first rule where all conditions are met"
     __fifc_help_print -e "\n\n"
 
     __fifc_help_opt \
