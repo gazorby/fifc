@@ -75,28 +75,30 @@ Custom rules can easily be added using the `fifc` command. Actually, all builtin
 
 Basically, a rule allows you to trigger some commands based on specific conditions.
 
-Available command types:
+A condition can be either:
+- A regex that must match commandline before cursor position
+- An arbitrary command that must exit with a non-zero status
+
+If conditions are met, you can bind custom commands:
 - **preview:** Command used for fzf preview
 - **source:** Command that feeds fzf input
 - **open:** Command binded to `fifc_open_keybinding` (defaults to ctrl-o)
 
-A condition can be either:
-- A regex that must match commandline before cursor
-- An arbitrary command that must exit with a non-zero status
-
 All commands have access to the following variable describing the completion context:
 
 
-| Variable           | Description                                                                           |
-| ------------------ | ------------------------------------------------------------------------------------- |
-| `fifc_candidate`   | Currently selected item in fzf                                                        |
-| `fifc_commandline` | Commandline part before the cursor position                                           |
-| `fifc_token`       | Last token from the commandline                                                       |
-| `fifc_group`       | Group to which fish suggestions belong (can be either files, options or processes)    |
-| `fifc_extracted`   | Extracted string from the currently selected item using the `extracted` regex, if any |
+| Variable           | Description                                                                           | Command availability |
+| ------------------ | ------------------------------------------------------------------------------------- | -------------------- |
+| `fifc_candidate`   | Currently selected item in fzf                                                        | all except source    |
+| `fifc_commandline` | Commandline part before the cursor position                                           | all                  |
+| `fifc_token`       | Last token from the commandline                                                       | all                  |
+| `fifc_group`       | Group to which fish suggestions belong (can be either files, options or processes)    | all                  |
+| `fifc_extracted`   | Extracted string from the currently selected item using the `extracted` regex, if any | all except source    |
 
 
-For example here's how built-in rule for file preview/open is implemened:
+### Examples
+
+Here is how the built-in rule for file preview/open is implemented:
 
 ```fish
 fifc \
@@ -106,4 +108,15 @@ fifc \
     -p _fifc_preview_file \
     # and `_fifc_preview_file` when pressing ctrl-o
     -o _fifc_open_file
+```
+
+Interactively search packages in archlinux:
+
+```fish
+fifc \
+    -r '^(pacman|paru)(\\h*-S)?\\h+\\w+' \
+    -s 'pacman --color=always -Ss "$fifc_token" | string match -r \'^[^\\h+].*\'' \
+    -e '.*/(.*?)\\h.*' \
+    -f "--query ''" \
+    -p 'pacman -Si "$fifc_extracted"'
 ```
