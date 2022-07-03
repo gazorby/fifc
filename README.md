@@ -16,9 +16,9 @@ fifc brings fzf powers on top of fish completion engine and allows customizable 
 
 - Preview/open any file: text, image, gif, pdf, archive, binary (using external tools)
 - Preview/open command's man page
-- Preview/open Function definitions
-- Preview/open Full option description when completing commands
-- Recursively search for files and folders when completing paths (use [fd](https://github.com/sharkdp/fd))
+- Preview/open function definitions
+- Preview/open full option description when completing commands
+- Recursively search for files and folders when completing paths (using [fd](https://github.com/sharkdp/fd))
 - Preview directory content
 - Preview process trees (using [procs](https://github.com/dalance/procs))
 - Modular: easily add your own completion rules
