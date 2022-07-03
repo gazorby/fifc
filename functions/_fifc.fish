@@ -2,7 +2,7 @@ function _fifc
     set -l fish_version (string split -- '.' $FISH_VERSION)
     set -l complist
     set -l result
-    set -gx _fifc_extract_regex
+    set -Ux _fifc_extract_regex
     set -gx _fifc_complist
     set -gx _fifc_custom_fzf_opts
     set -gx fifc_token (commandline --current-token)
