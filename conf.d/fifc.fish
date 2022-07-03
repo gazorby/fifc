@@ -35,12 +35,12 @@ fifc \
     -o _fifc_open_opt
 fifc \
     -n 'test -n "$fifc_desc"; and type -q -f -- "$fifc_candidate"' \
-    -r '^(?!\w+\h+)' \
+    -r '^(?!\\w+\\h+)' \
     -p _fifc_preview_cmd \
     -o _fifc_open_cmd
 fifc \
     -n 'test -n "$fifc_desc"' \
-    -r '^functions\h+|^\h+' \
+    -r '^functions\\h+|^\\h+' \
     -p _fifc_preview_fn \
     -o _fifc_open_fn
 fifc \
@@ -55,7 +55,7 @@ fifc \
     -n 'test "$fifc_group" = processes -a (ps -p (_fifc_parse_pid "$fifc_candidate") &>/dev/null)' \
     -p _fifc_preview_process \
     -o _fifc_open_process \
-    -e '^\h*([0-9]+)'
+    -e '^\\h*([0-9]+)'
 
 
 # Fisher
