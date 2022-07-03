@@ -21,23 +21,22 @@ function _fifc_action
     end
 
     for i in (seq (count $comp))
-        set -l conditions
+        set -l condition
+        set -l regex
         set -l valid 1
         if test -n "$$comp[$i][1]"
-            set -a conditions "$$comp[$i][1]"
+            set condition "$$comp[$i][1]"
+        else
+            set condition true
         end
         if test -n "$$comp[$i][2]"
-            set -a conditions "string match --regex --quiet -- '$$comp[$i][2]' '$fifc_commandline'"
+            set regex "string match --regex --quiet -- '$$comp[$i][2]' '$fifc_commandline'"
+        else
+            set regex true
         end
 
-        for condition in $conditions
-            if not eval "$condition"
-                set valid 0
-                break
-            end
-        end
-
-        if test $valid -eq 0
+        if not eval "$condition; and $regex"
+            set valid 0
             continue
         end
 
