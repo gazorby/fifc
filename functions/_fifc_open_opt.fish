@@ -1,5 +1,5 @@
 function _fifc_open_opt -d "Open a man page starting at the selected option"
-    set -l cmd (string match --regex --groups-only -- '(\w+) ?-*' "$fifc_commandline")
+    set -l cmd (string match --regex --groups-only -- '(^|\h+)(\w+) ?-*$' "$fifc_commandline")
     set -l opt (string trim --chars '\n ' -- "$fifc_candidate")
     set -l regex "^\h*(-+[^\n]*)*$opt"
 
