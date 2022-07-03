@@ -46,7 +46,6 @@ By default fifc override `tab`, but you can assign another keybinding:
 set -U fifc_keybinding \cx
 ```
 
-
 fifc can use modern tools if available:
 
 | Prefer                                           | Fallback to | Used for                                  | Custom options     |
