@@ -2,13 +2,12 @@ function _fifc
     set -l fish_version (string split -- '.' $FISH_VERSION)
     set -l complist
     set -l result
-    set -Ux _fifc_group
-    set -Ux _fifc_extract_regex
-    set -Ux _fifc_complist
-    set -Ux _fifc_custom_fzf_opts
-    set -Ux fifc_token (commandline --current-token)
-    set -Ux fifc_extracted
-    set -Ux fifc_commandline
+    set -gx _fifc_extract_regex
+    set -gx _fifc_complist
+    set -gx _fifc_custom_fzf_opts
+    set -gx fifc_token (commandline --current-token)
+    set -gx fifc_extracted
+    set -gx fifc_commandline
 
     # Get commandline buffer
     if test "$argv" = ""
@@ -28,7 +27,7 @@ function _fifc
     end
 
     # Split using '/' as it can't be used in filenames
-    set -gx _fifc_complist (string join -- ' / ' $complist)
+    set -gx _fifc_complist (string join -- $_fifc_complist_sep $complist)
 
     if string match --quiet --regex -- '\w+ +-+ *$' "$fifc_commandline"
         set -e query
@@ -86,7 +85,6 @@ function _fifc
     commandline --function repaint
 
     # Clean state
-    set -e _fifc_group
     set -e _fifc_extract_regex
     set -e _fifc_complist
     set -e _fifc_custom_fzf_opts

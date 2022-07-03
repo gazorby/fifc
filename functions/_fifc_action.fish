@@ -1,17 +1,17 @@
 function _fifc_action
     # Can be either "preview", "action" or "source"
     set -l action $argv[1]
-    set -l regex_val (string escape --style=regex -- $argv[2])
+    set -l regex_val (string escape --style=regex -- "$argv[2]")
     set -l comp $_fifc_ordered_comp $_fifc_unordered_comp
 
     # Variables exposed to evaluated commands
-    set -lx fifc_desc ( \
+    set -x fifc_desc ( \
         _fifc_split_complist \
         | string match --regex --groups-only -- "$regex_val\h+(.*)" \
         | string trim \
     )
-    set -lx fifc_group (_fifc_completion_group)
-    set -lx fifc_candidate $argv[2]
+    set -x fifc_group (_fifc_completion_group)
+    set -x fifc_candidate "$argv[2]"
     set fifc_extracted (string match --regex --groups-only -- "$_fifc_extract_regex" "$argv[2]")
 
     if test "$action" = preview
@@ -31,7 +31,7 @@ function _fifc_action
         end
 
         for condition in $conditions
-            if not eval $condition
+            if not eval "$condition"
                 set valid 0
                 break
             end
