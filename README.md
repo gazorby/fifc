@@ -6,26 +6,22 @@ _fish fzf completions_
 
 [![CI](https://github.com/gazorby/fifc/actions/workflows/ci.yml/badge.svg)](https://github.com/gazorby/fifc/actions/workflows/ci.yml)
 
-</div>
+fifc brings fzf powers on top of fish completion engine and allows customizable completion rules
 
-fifc brings fzf powers on top of fish completion engine and allows customizable completion rules.
+</div>
 
 ![gif usage](../assets/fifc.gif)
 
-## Builtin features
+## Features
 
-### Preview/open
-
-- Preview/open any file (text, image, gif, pdf, archive)
+- Preview/open any file: text, image, gif, pdf, archive, binary (using external tools)
 - Preview/open command's man page
-- Preview/open full option description for commands (parse man pages)
-- Preview/open directory content
-- Preview/open process tree using
-- Preview/open function definition
-
-### Sources
-
-- Use fd for path completion (recursively search for files and folders)
+- Preview/open Function definitions
+- Preview/open Full option description when completing commands
+- Recursively search for files and folders when completing paths (use [fd](https://github.com/sharkdp/fd))
+- Preview directory content
+- Preview process trees (using [procs](https://github.com/dalance/procs))
+- Modular: easily add your own completion rules
 
 ## 🚀 Install
 
@@ -94,7 +90,7 @@ All commands have access to the following variable describing the completion con
 | `fifc_candidate`   | Currently selected item in fzf                                                        | all except source    |
 | `fifc_commandline` | Commandline part before the cursor position                                           | all                  |
 | `fifc_token`       | Last token from the commandline                                                       | all                  |
-| `fifc_group`       | Group to which fish suggestions belong (can be either files, options or processes)    | all                  |
+| `fifc_group`       | Group to which fish suggestions belong (possible values: files, options or processes) | all                  |
 | `fifc_extracted`   | Extracted string from the currently selected item using the `extracted` regex, if any | all except source    |
 
 ### Matching order
