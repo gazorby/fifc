@@ -39,6 +39,14 @@ set -Ux fifc_editor <your-favorite-editor>
 
 And enjoy built-in completions!
 
+By default fifc override `tab`, but you can assign another keybinding:
+
+```fish
+# Bind fzf completions to ctrl-x
+set -U fifc_keybinding \cx
+```
+
+
 fifc can use modern tools if available:
 
 | Prefer                                           | Fallback to | Used for                                  | Custom options     |
