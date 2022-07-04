@@ -4,9 +4,9 @@ function _fifc_source_files -d "Return a command to recursively find files"
 
     if type -q fd
         if test "$path" = {$PWD}/
-            echo "fd . --color=always --strip-cwd-prefix $fifc_fd_opts"
+            echo "fd . --color=always $fifc_fd_opts"
         else if test "$path" = "."
-            echo "fd . --color=always --strip-cwd-prefix --hidden $fifc_fd_opts"
+            echo "fd . --color=always --hidden $fifc_fd_opts"
         else if test -n "$hidden"
             echo "fd . --color=always --hidden $fifc_fd_opts $path"
         else
