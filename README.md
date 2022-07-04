@@ -22,6 +22,7 @@ fifc brings fzf powers on top of fish completion engine and allows customizable 
 - Preview directory content
 - Preview process trees (using [procs](https://github.com/dalance/procs))
 - Modular: easily add your own completion rules
+- Properly handle paths with spaces (needs fish 3.4+)
 
 ## 🚀 Install
 
@@ -102,7 +103,7 @@ All commands have access to the following variable describing the completion con
 
 ### Matching order
 
-fifc evaluate all rules in the order in which they have been defined and stops at the first where all conditions are met.
+By default, fifc evaluate all rules in the order in which they have been defined and stops at the first where all conditions are met.
 It does this each time it has to resolve source, preview and open commands.
 
 Take the following scenario:
@@ -132,7 +133,9 @@ Here, even if both rules have the same conditions, they won't interfere because 
 If you want to write your own rule based on the same conditions as one of the built-in ones, you can use fifc `--order` option.
 It tells fifc to evaluate the rule in a predefined order, so you can set it to 1 to make sure it will be evaluated first.
 
-When omitting the `--order`, the rule will be declared unordered, and will be evaluated _after_ all other ordered rules.
+When omitting the `--order`, the rule will be declared unordered and will be evaluated _after_ all other ordered rules, and all other unordered rules defined before.
+
+All built-in rules are unordered.
 
 ### Examples
 
@@ -158,3 +161,11 @@ fifc \
     -f "--query ''" \
     -p 'pacman -Si "$fifc_extracted"'
 ```
+
+## ❤️ Credits
+
+Thanks [PatrickF1](https://github.com/PatrickF1) (and collaborators!), for the great [fzf.fish](https://github.com/PatrickF1/fzf.fish) plugin which inspired me for the command-based configuration, and from which I copied the ci workflow.
+
+## 📝 License
+
+[MIT](https://github.com/gazorby/fifc/blob/87c965fe42a5b2ddb6e0ea84871ca56651db1cb2/LICENSE)
