@@ -1,6 +1,5 @@
 function _fifc
     set -l fish_version (string split -- '.' $FISH_VERSION)
-    set -l complist
     set -l result
     set -Ux _fifc_extract_regex
     set -gx _fifc_complist
@@ -18,29 +17,32 @@ function _fifc
 
     set -l query $fifc_commandline
 
-    # Get completion list
     # --escape is only available on fisher 3.4+
-    if test $fish_version[2] -ge 4
-        set complist (complete -C --escape $fifc_commandline)
-    else
-        set complist (complete -C $fifc_commandline)
+    if test \( $fish_version[1] -eq 3 -a $fish_version[2] -ge 4 \) -o \( $fish_version[1] -gt 3 \)
+        set complete_opts --escape
     end
 
-    # Split using '/' as it can't be used in filenames
-    set -gx _fifc_complist (string join -- $_fifc_complist_sep $complist)
+    # Don't trigger fifc on empty commandline to avoid exceeding OS argument length limit
+    if test -n (string trim -- $fifc_commandline)
+        # Split using '/' as it can't be used in filenames
+        set -gx _fifc_complist ( \
+            complete -C $complete_opts "$fifc_commandline" \
+            | string join -- $_fifc_complist_sep \
+        )
 
-    if string match --quiet --regex -- '\w+ +-+ *$' "$fifc_commandline"
-        set -e query
+        if string match --quiet --regex -- '\w+ +-+ *$' "$fifc_commandline"
+            set -e query
+        else
+            # Set intial query to the last token from commandline buffer
+            set query (string split -- ' ' $query)
+            set query $query[-1]
+        end
+
+        set source_cmd (_fifc_action source)
     else
-        # Set intial query to the last token from commandline buffer
-        set query (string split -- ' ' $query)
-        set query $query[-1]
+        set source_cmd "complete -C $complete_opts | awk -F \\t '{ print \$1 }'"
     end
 
-    # We use eval hack because wrapping source command
-    # inside a function cause some delay before fzf to show up
-    # set -l source_cmd (_fifc_source_cmd)
-    set -l source_cmd (_fifc_action source)
     set -l fzf_cmd "
         fzf \
             -d \t \
@@ -58,11 +60,14 @@ function _fifc
             --query '$query' \
             $_fifc_custom_fzf_opts"
 
-    set -l cmd (string join -- " | " $source_cmd $fzf_cmd)
 
-    # Perform extraction if needed
+    set -l cmd (string join -- " | " $source_cmd $fzf_cmd)
+    # We use eval hack because wrapping source command
+    # inside a function cause some delay before fzf to show up
+    # set -l source_cmd (_fifc_source_cmd)
     eval $cmd | while read -l token
         set -a result (string escape -- $token)
+        # Perform extraction if needed
         if test -n "$_fifc_extract_regex"
             set result[-1] (string match --regex --groups-only -- "$_fifc_extract_regex" "$token")
         end
