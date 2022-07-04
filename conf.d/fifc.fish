@@ -34,7 +34,7 @@ fifc \
     -p _fifc_preview_opt \
     -o _fifc_open_opt
 fifc \
-    -n 'test -n "$fifc_desc"; and type -q -f -- "$fifc_candidate"' \
+    -n 'test \( -n "$fifc_desc" -o -z "$fifc_commandline" \); and type -q -f -- "$fifc_candidate"' \
     -r '^(?!\\w+\\h+)' \
     -p _fifc_preview_cmd \
     -o _fifc_open_cmd
