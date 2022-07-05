@@ -36,8 +36,8 @@ fifc \
     -p _fifc_preview_cmd \
     -o _fifc_open_cmd
 fifc \
-    -n 'test -n "$fifc_desc"' \
-    -r '^functions\\h+|^\\h+' \
+    -n 'test -n "$fifc_desc" -o -z "$fifc_commandline"' \
+    -r '^(functions)?\\h*' \
     -p _fifc_preview_fn \
     -o _fifc_open_fn
 fifc \
