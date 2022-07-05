@@ -14,11 +14,8 @@ end
 
 # Private
 set -Ux _fifc_comp_count 0
-set -Ux _fifc_source_count 0
 set -gx _fifc_unordered_comp
 set -gx _fifc_ordered_comp
-set -gx _fifc_unordered_sources
-set -gx _fifc_ordered_sources
 
 # Set sources
 fifc \
@@ -78,6 +75,4 @@ function _fifc_uninstall --on-event fifc_uninstall
     set -e _fifc_source_count
     set -e _fifc_unordered_comp
     set -e _fifc_ordered_comp
-    set -e _fifc_unordered_sources
-    set -e _fifc_ordered_sources
 end
