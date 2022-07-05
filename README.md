@@ -10,7 +10,7 @@ fifc brings fzf powers on top of fish completion engine and allows customizable 
 
 </div>
 
-![gif usage](../assets/fifc.gif)
+![gif usage](../assets/demo.gif)
 
 ## Features
 
