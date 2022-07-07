@@ -56,13 +56,7 @@ fifc \
 
 
 # Fisher
-function _fifc_install --on-event fifc_install
-    set -U _fifc_complist_sep ' / '
-end
-
 function _fifc_uninstall --on-event fifc_uninstall
-    set -e _fifc_complist_sep
-
     for i in (seq (count $_fifc_unordered_comp))
         set -e $_fifc_unordered_comp[$i]
     end

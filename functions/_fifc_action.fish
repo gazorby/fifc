@@ -1,21 +1,19 @@
 function _fifc_action
     # Can be either "preview", "action" or "source"
     set -l action $argv[1]
-    set -l regex_val (string escape --style=regex -- "$argv[2]")
     set -l comp $_fifc_ordered_comp $_fifc_unordered_comp
+    set -l regex_val (string escape --style=regex -- "$argv[2]")
+    # Escape '/' for sed processing
+    set regex_val (string replace '/' '\/' --all "$regex_val")
 
     # Variables exposed to evaluated commands
-    set -x fifc_desc ( \
-        _fifc_split_complist \
-        | string match --regex --groups-only -- "$regex_val\h+(.*)" \
-        | string trim \
-    )
-    set -x fifc_group (_fifc_completion_group)
+    set -x fifc_desc (sed -nr (printf -- 's/^%s[[:blank:]]+(.*)/\\\1/p' "$regex_val") $_fifc_complist_path | string trim)
     set -x fifc_candidate "$argv[2]"
-    set fifc_extracted (string match --regex --groups-only -- "$_fifc_extract_regex" "$argv[2]")
+    set -x fifc_extracted (string match --regex --groups-only -- "$_fifc_extract_regex" "$argv[2]")
 
     if test "$action" = preview
         set default_preview 1
+
     else if test "$action" = source
         set default_source 1
     end
@@ -30,6 +28,8 @@ function _fifc_action
             set condition true
         end
         if test -n "$$comp[$i][2]"
+            # set -l regex (string escape --style regex $$comp[$i][2])
+            # set regex_c (string join '' "string match --regex --quiet -- '$$comp[$i][2]'" (string escape "$fifc_commandline"))
             set regex "string match --regex --quiet -- '$$comp[$i][2]' '$fifc_commandline'"
         else
             set regex true
