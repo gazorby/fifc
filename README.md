@@ -164,7 +164,7 @@ fifc \
 
 ![gif usage](../assets/pacman.gif)
 
-Search patterns in files and preview matches when commandline starts with `**<pattern>` (using [ripgrep](<[https://](https://github.com/burntsushi/ripgrep)>) and [batgrep](<[https://](https://github.com/eth-p/bat-extras/blob/master/doc/batgrep.md#bat-extras-batgrep)>)):
+Search patterns in files and preview matches when commandline starts with `**<pattern>` (using [ripgrep](https://github.com/burntsushi/ripgrep) and [batgrep](https://github.com/eth-p/bat-extras/blob/master/doc/batgrep.md#bat-extras-batgrep)):
 
 ```fish
 fifc \
