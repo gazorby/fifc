@@ -1,5 +1,6 @@
 set curr_fifc_unordered_comp $_fifc_unordered_comp
 set curr_fifc_ordered_comp $_fifc_ordered_comp
+set _fifc_complist_path (mktemp)
 
 # Add unordered sources
 set comp_1 'test "$any" = "1"' '^kill $' '' '' 'echo comp_1'
@@ -23,3 +24,4 @@ set actual (_fifc_action "source")
 set -e fifc_commandline
 set -gx _fifc_unordered_comp $curr_fifc_unordered_comp
 set -gx _fifc_unordered_comp $curr_fifc_ordered_comp
+rm $_fifc_complist_path
