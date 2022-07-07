@@ -28,9 +28,7 @@ function _fifc_action
             set condition true
         end
         if test -n "$$comp[$i][2]"
-            # set -l regex (string escape --style regex $$comp[$i][2])
-            # set regex_c (string join '' "string match --regex --quiet -- '$$comp[$i][2]'" (string escape "$fifc_commandline"))
-            set regex "string match --regex --quiet -- '$$comp[$i][2]' '$fifc_commandline'"
+            set regex "string match --regex --quiet -- '$$comp[$i][2]' \"$fifc_commandline\""
         else
             set regex true
         end
