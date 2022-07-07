@@ -166,8 +166,6 @@ fifc \
 
 Search patterns in files and preview matches when commandline starts with `**<pattern>` (using [ripgrep](<[https://](https://github.com/burntsushi/ripgrep)>) and [batgrep](<[https://](https://github.com/eth-p/bat-extras/blob/master/doc/batgrep.md#bat-extras-batgrep)>)):
 
-![gif usage](../assets/batgrep.gif)
-
 ```fish
 fifc \
     -r '.*\*{2}.*' \
@@ -177,6 +175,8 @@ fifc \
     -o 'batgrep --color (string match -r -g \'.*\*{2}(.*)\' "$fifc_commandline") "$fifc_candidate" | less -R' \
     -O 1
 ```
+
+![gif usage](../assets/batgrep.gif)
 
 ## ❤️ Credits
 
