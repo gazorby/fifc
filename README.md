@@ -155,11 +155,27 @@ Interactively search packages in archlinux:
 
 ```fish
 fifc \
-    -r '^(pacman|paru)(\\h*-S)?\\h+\\w+' \
+    -r '^(pacman|paru)(\\h*\\-S)?\\h+' \
     -s 'pacman --color=always -Ss "$fifc_token" | string match -r \'^[^\\h+].*\'' \
     -e '.*/(.*?)\\h.*' \
     -f "--query ''" \
     -p 'pacman -Si "$fifc_extracted"'
+```
+
+![gif usage](../assets/pacman.gif)
+
+Search patterns in files and preview matches when commandline starts with `**<pattern>` (using [ripgrep](<[https://](https://github.com/burntsushi/ripgrep)>) and [batgrep](<[https://](https://github.com/eth-p/bat-extras/blob/master/doc/batgrep.md#bat-extras-batgrep)>)):
+
+![gif usage](../assets/batgrep.gif)
+
+```fish
+fifc \
+    -r '.*\*{2}.*' \
+    -s 'rg --hidden -l --no-messages (string match -r -g \'.*\*{2}(.*)\' "$fifc_commandline")' \
+    -p 'batgrep --color --paging=never (string match -r -g \'.*\*{2}(.*)\' "$fifc_commandline") "$fifc_candidate"' \
+    -f "--query ''" \
+    -o 'batgrep --color (string match -r -g \'.*\*{2}(.*)\' "$fifc_commandline") "$fifc_candidate" | less -R' \
+    -O 1
 ```
 
 ## ❤️ Credits
