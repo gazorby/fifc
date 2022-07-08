@@ -1,5 +1,5 @@
 function _fifc_action
-    # Can be either "preview", "action" or "source"
+    # Can be either "preview", "open" or "source"
     set -l action $argv[1]
     set -l comp $_fifc_ordered_comp $_fifc_unordered_comp
     set -l regex_val (string escape --style=regex -- "$argv[2]")
@@ -13,6 +13,10 @@ function _fifc_action
 
     if test "$action" = preview
         set default_preview 1
+        set fifc_query "$argv[3]"
+
+    else if test "$action" = open
+        set fifc_query "$argv[3]"
 
     else if test "$action" = source
         set default_source 1

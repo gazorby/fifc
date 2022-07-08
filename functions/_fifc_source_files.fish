@@ -2,8 +2,8 @@ function _fifc_source_files -d "Return a command to recursively find files"
     set -l path (_fifc_path_to_complete | string escape)
     set -l hidden (string match "*." "$path")
 
-    if string match --quiet -- '~*' "$fifc_fzf_query"
-        set -e fifc_fzf_query
+    if string match --quiet -- '~*' "$fifc_query"
+        set -e fifc_query
     end
 
     if type -q fd

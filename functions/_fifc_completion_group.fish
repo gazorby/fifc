@@ -8,7 +8,7 @@ function _fifc_completion_group -d "Determine completion group"
     if test -n "$is_null"; and test \( -f "$complist[1]" -o -d "$complist[1]" \); and echo (string escape -- $complist) | xargs ls -d -- &>/dev/null
         echo files
     else if string match --regex --quiet -- '\h+\-+\h*$' $fifc_commandline
-        set -e fifc_fzf_query
+        set -e fifc_query
         echo options
     else if string join -- '' (string escape -- $complist) | string match --regex --quiet '^[0-9]+$'
         echo processes

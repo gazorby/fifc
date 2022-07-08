@@ -7,7 +7,7 @@ function _fifc
     set -gx fifc_extracted
     set -gx fifc_commandline
     set -gx fifc_token (commandline --current-token)
-    set -gx fifc_fzf_query "$fifc_token"
+    set -gx fifc_query "$fifc_token"
 
     # Get commandline buffer
     if test "$argv" = ""
@@ -40,9 +40,9 @@ function _fifc
             --multi \
             --reverse \
             --header '$header' \
-            --preview '_fifc_action preview {}' \
-            --bind='$fifc_open_keybinding:execute(_fifc_action open {} &> /dev/tty)' \
-            --query '$fifc_fzf_query' \
+            --preview '_fifc_action preview {} {q}' \
+            --bind='$fifc_open_keybinding:execute(_fifc_action open {} {q} &> /dev/tty)' \
+            --query '$fifc_query' \
             $_fifc_custom_fzf_opts"
 
     set -l cmd (string join -- " | " $source_cmd $fzf_cmd)
@@ -82,4 +82,5 @@ function _fifc
     set -e fifc_extracted
     set -e fifc_candidate
     set -e fifc_commandline
+    set -e fifc_query
 end

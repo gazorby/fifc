@@ -93,13 +93,14 @@ If conditions are met, you can bind custom commands:
 
 All commands have access to the following variable describing the completion context:
 
-| Variable           | Description                                                                           | Command availability |
-| ------------------ | ------------------------------------------------------------------------------------- | -------------------- |
-| `fifc_candidate`   | Currently selected item in fzf                                                        | all except source    |
-| `fifc_commandline` | Commandline part before the cursor position                                           | all                  |
-| `fifc_token`       | Last token from the commandline                                                       | all                  |
-| `fifc_group`       | Group to which fish suggestions belong (possible values: files, options or processes) | all                  |
-| `fifc_extracted`   | Extracted string from the currently selected item using the `extracted` regex, if any | all except source    |
+| Variable           | Description                                                                                 | Command availability |
+| ------------------ | ------------------------------------------------------------------------------------------- | -------------------- |
+| `fifc_candidate`   | Currently selected item in fzf                                                              | all except source    |
+| `fifc_commandline` | Commandline part before the cursor position                                                 | all                  |
+| `fifc_token`       | Last token from the commandline                                                             | all                  |
+| `fifc_group`       | Group to which fish suggestions belong (possible values: files, options or processes)       | all                  |
+| `fifc_extracted`   | Extracted string from the currently selected item using the `extracted` regex, if any       | all except source    |
+| `fifc_query`       | fzf query. On source command, it is the initial fzf query (passed through `--query` option) | all                  |
 
 ### Matching order
 

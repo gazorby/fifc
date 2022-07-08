@@ -8,6 +8,8 @@ function _fifc_test_exposed_vars
             echo -n "$fifc_candidate"
         case extracted
             echo -n "$fifc_extracted"
+        case query
+            echo -n "$fifc_query"
     end
 end
 
@@ -32,5 +34,10 @@ set -x fifc_extracted
 set _fifc_extract_regex '.*/(.*\.txt)$'
 set actual (_fifc_action "preview" "$dir/file 1.txt")
 @test "exposed vars fifc_extracted" "$actual" = "file 1.txt"
+
+set var query
+set -x fifc_query
+set actual (_fifc_action "preview" "$dir/file 1.txt" "1")
+@test "exposed vars fifc_query" "$actual" = 1
 
 rm $_fifc_complist_path
