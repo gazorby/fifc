@@ -7,7 +7,7 @@ function _fifc
     set -gx fifc_extracted
     set -gx fifc_commandline
     set -gx fifc_token (commandline --current-token)
-    set -gx fifc_fzf_query $fifc_token
+    set -gx fifc_fzf_query "$fifc_token"
 
     # Get commandline buffer
     if test "$argv" = ""
@@ -21,11 +21,13 @@ function _fifc
         set complete_opts --escape
     end
 
-    complete -C $complete_opts "$fifc_commandline" | string split '\n' >$_fifc_complist_path
+    complete -C $complete_opts -- "$fifc_commandline" | string split '\n' >$_fifc_complist_path
 
     set -gx fifc_group (_fifc_completion_group)
-
     set source_cmd (_fifc_action source)
+
+    set fifc_fzf_query (string trim --chars '\'' -- "$fifc_fzf_query")
+
     set -l fzf_cmd "
         fzf \
             -d \t \

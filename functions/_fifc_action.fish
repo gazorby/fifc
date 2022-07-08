@@ -19,21 +19,22 @@ function _fifc_action
     end
 
     for i in (seq (count $comp))
-        set -l condition
-        set -l regex
+        set -l condition_cmd
+        set -l regex_cmd
         set -l valid 1
         if test -n "$$comp[$i][1]"
-            set condition "$$comp[$i][1]"
+            set condition_cmd "$$comp[$i][1]"
         else
-            set condition true
+            set condition_cmd true
         end
         if test -n "$$comp[$i][2]"
-            set regex "string match --regex --quiet -- '$$comp[$i][2]' \"$fifc_commandline\""
+            set -l val (string escape -- "$fifc_commandline")
+            set regex_cmd "string match --regex --quiet -- '$$comp[$i][2]' $val"
         else
-            set regex true
+            set regex_cmd true
         end
 
-        if not eval "$condition; and $regex"
+        if not eval "$condition_cmd; and $regex_cmd"
             set valid 0
             continue
         end
