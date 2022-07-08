@@ -7,6 +7,7 @@ function _fifc
     set -gx fifc_extracted
     set -gx fifc_commandline
     set -gx fifc_token (commandline --current-token)
+    set -gx fifc_fzf_query $fifc_token
 
     # Get commandline buffer
     if test "$argv" = ""
@@ -14,8 +15,6 @@ function _fifc
     else
         set fifc_commandline $argv
     end
-
-    set -l query $fifc_commandline
 
     # --escape is only available on fisher 3.4+
     if test \( $fish_version[1] -eq 3 -a $fish_version[2] -ge 4 \) -o \( $fish_version[1] -gt 3 \)
@@ -25,14 +24,6 @@ function _fifc
     complete -C $complete_opts "$fifc_commandline" | string split '\n' >$_fifc_complist_path
 
     set -gx fifc_group (_fifc_completion_group)
-
-    if string match --quiet --regex -- '\w+ +-+ *$' "$fifc_commandline"
-        set -e query
-    else
-        # Set intial query to the last token from commandline buffer
-        set query (string split -- ' ' $query)
-        set query $query[-1]
-    end
 
     set source_cmd (_fifc_action source)
     set -l fzf_cmd "
@@ -49,9 +40,8 @@ function _fifc
             --header '$header' \
             --preview '_fifc_action preview {}' \
             --bind='$fifc_open_keybinding:execute(_fifc_action open {} &> /dev/tty)' \
-            --query '$query' \
+            --query '$fifc_fzf_query' \
             $_fifc_custom_fzf_opts"
-
 
     set -l cmd (string join -- " | " $source_cmd $fzf_cmd)
     # We use eval hack because wrapping source command
