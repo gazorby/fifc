@@ -1,3 +1,3 @@
 function _fifc_expand_tilde
-    string replace --regex -- '^~(/?)' "$HOME\$1" $argv
+    string replace --regex -- '^~' "$HOME" $argv
 end
