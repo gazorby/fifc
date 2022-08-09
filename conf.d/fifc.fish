@@ -23,7 +23,7 @@ fifc \
     -s _fifc_source_files
 fifc \
     -n 'test "$fifc_group" = processes' \
-    -s 'ps --no-headers -ax --format pid,command'
+    -s 'ps -ax -o pid=,command='
 
 # Builtin preview/open commands
 fifc \
