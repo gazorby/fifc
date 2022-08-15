@@ -5,6 +5,8 @@ function _fifc_open_file -d "Open a file with the right tool depending on its ty
         set filepath "$argv"
     end
 
+    set -q fifc_editor || set -l fifc_editor "$EDITOR"
+
     set -l file_type (_fifc_file_type "$filepath")
 
     switch $file_type
