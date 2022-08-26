@@ -7,10 +7,14 @@ function _fifc_source_files -d "Return a command to recursively find files"
     end
 
     if type -q fd
+        if _fifc_test_version (fd --version) -ge "8.3.0"
+            set fd_custom_opts --strip-cwd-prefix
+        end
+
         if test "$path" = {$PWD}/
-            echo "fd . --color=always $fifc_fd_opts"
+            echo "fd . --color=always $fd_custom_opts $fifc_fd_opts"
         else if test "$path" = "."
-            echo "fd . --color=always --hidden $fifc_fd_opts"
+            echo "fd . --color=always --hidden $fd_custom_opts $fifc_fd_opts"
         else if test -n "$hidden"
             echo "fd . --color=always --hidden $fifc_fd_opts -- $path"
         else

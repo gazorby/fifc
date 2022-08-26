@@ -1,5 +1,4 @@
 function _fifc
-    set -l fish_version (string split -- '.' $FISH_VERSION)
     set -l result
     set -Ux _fifc_extract_regex
     set -gx _fifc_complist_path (string join '' (mktemp) "_fifc")
@@ -16,8 +15,7 @@ function _fifc
         set fifc_commandline $argv
     end
 
-    # --escape is only available on fisher 3.4+
-    if test \( $fish_version[1] -eq 3 -a $fish_version[2] -ge 4 \) -o \( $fish_version[1] -gt 3 \)
+    if _fifc_test_version "$FISH_VERSION" -ge "3.4"
         set complete_opts --escape
     end
 
