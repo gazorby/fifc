@@ -12,7 +12,11 @@ fifc brings fzf powers on top of fish completion engine and allows customizable 
 
 ![gif usage](../assets/demo.gif)
 
-## Features
+## ✅ Requirements
+
+- [fish](https://github.com/fish-shell/fish-shell) 3.4.0+
+
+## ✨ Features
 
 - Preview/open any file: text, image, gif, pdf, archive, binary (using external tools)
 - Preview/open command's man page
