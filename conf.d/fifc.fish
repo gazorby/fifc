@@ -13,7 +13,7 @@ end
 
 
 # Private
-set -Ux _fifc_comp_count 0
+set -gx _fifc_comp_count 0
 set -gx _fifc_unordered_comp
 set -gx _fifc_ordered_comp
 
