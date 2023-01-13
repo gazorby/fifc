@@ -14,7 +14,7 @@ function _fifc_preview_opt -d "Open man page of a command starting at the select
             end
         end \
         # Remove last line as it should describes the next option
-        | head -n -1 \
+        | awk 'n>=1 { print a[n%1] } { a[n%1]=$0; n=n+1 }' \
         | string trim \
     )
 
