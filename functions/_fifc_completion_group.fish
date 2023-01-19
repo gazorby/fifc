@@ -4,8 +4,14 @@ function _fifc_completion_group -d "Determine completion group"
     set -l is_null (ls -A -- $path_candidate 2> /dev/null | string collect)
     set -l complist (_fifc_expand_tilde (_fifc_parse_complist))
 
-    # When complist is big, avoid calling ls with all arguments if first is neither a file nor a directory
-    if test -n "$is_null"; and test \( -f "$complist[1]" -o -d "$complist[1]" \); and echo (string escape -- $complist) | xargs ls -d -- &>/dev/null
+    set -l dir_test "test -d '$complist[1]'"
+    for comp in $complist[2..-1]
+        set dir_test (string collect $dir_test " -a -d '$comp'")
+    end
+    if test -n "$is_null"; and eval "$dir_test"
+        echo directories
+        # When complist is big, avoid calling ls with all arguments if first is neither a file nor a directory
+    else if test -n "$is_null"; and test \( -f "$complist[1]" -o -d "$complist[1]" \); and echo (string escape -- $complist) | xargs ls -d -- &>/dev/null
         echo files
     else if string match --regex --quiet -- '\h+\-+\h*$' $fifc_commandline
         set -e fifc_query
