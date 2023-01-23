@@ -76,6 +76,12 @@ Show hidden file by default:
 
 - `set -U fifc_fd_opts --hidden`
 
+| Item type | Preview using | open action |
+| Files | bat | Open the file in `$fifc_editor` |
+| Directory | exa | Open the directory tree using [broot](https://github.com/Canop/broot) if installed |
+| Images/Gif | chafa | Open the image using [broot](https://github.com/Canop/broot) if installed |
+| Images/Gif | y | Open the directory tree using [broot](https://github.com/Canop/broot) if installed |
+
 ## 🛠️ Write your own rules
 
 Custom rules can easily be added using the `fifc` command. Actually, all builtin rules are added this way: see [conf.d/fifc.fish](https://github.com/gazorby/fifc/blob/52ff966511ea97ed7be79db469fe178784e22fd8/conf.d/fifc.fish)
