@@ -4,10 +4,9 @@ function _fifc_completion_group -d "Determine completion group"
     set -l is_null (ls -A -- $path_candidate 2> /dev/null | string collect)
     set -l complist (_fifc_expand_tilde (_fifc_parse_complist))
 
-    set -l dir_test "test -d '$complist[1]'"
-    for comp in $complist[2..-1]
-        set dir_test (string collect $dir_test " -a -d '$comp'")
-    end
+    set -l dir_test "test -d '$complist[1]"
+    set dir_test (string join "' -a -d '" $dir_test $complist[2..-1])
+    set dir_test $complist"'"
     if test -n "$is_null"; and eval "$dir_test"
         echo directories
         # When complist is big, avoid calling ls with all arguments if first is neither a file nor a directory
