@@ -52,7 +52,7 @@ function _fifc
         if string match --quiet '~*' -- $token
             set -a result (string join -- "" "~" (string sub --start 2 -- $token | string escape))
         else
-            set -a result (string escape -- $token)
+            set -a result (string escape --no-quoted -- $token)
         end
         # Perform extraction if needed
         if test -n "$_fifc_extract_regex"
@@ -63,7 +63,8 @@ function _fifc
     # Add space trailing space only if:
     # - there is no trailing space already present
     # - Result is not a directory
-    if test (count $result) -eq 1; and not test -d $result[1]
+    # We need to unescape $result for directory test as we escaped it before
+    if test (count $result) -eq 1; and not test -d (string unescape -- $result[1])
         set -l buffer (string split -- "$fifc_commandline" (commandline -b))
         if not string match -- ' *' "$buffer[2]"
             set -a result ''
