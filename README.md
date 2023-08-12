@@ -76,11 +76,7 @@ Show hidden file by default:
 
 - `set -U fifc_fd_opts --hidden`
 
-| Item type | Preview using | open action |
-| Files | bat | Open the file in `$fifc_editor` |
-| Directory | exa | Open the directory tree using [broot](https://github.com/Canop/broot) if installed |
-| Images/Gif | chafa | Open the image using [broot](https://github.com/Canop/broot) if installed |
-| Images/Gif | y | Open the directory tree using [broot](https://github.com/Canop/broot) if installed |
+⚠️ Don't use quotes in variables, set them as a list: `set -U fifc_exa_opts --icons --tree`
 
 ## 🛠️ Write your own rules
 
