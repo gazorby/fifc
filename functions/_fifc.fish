@@ -1,4 +1,6 @@
 function _fifc
+    set -l std_cmd "fzf -d \t"
+    set -l new_cmd $fifc_fzf_cmd
     set -l result
     set -Ux _fifc_extract_regex
     set -gx _fifc_complist_path (string join '' (mktemp) "_fifc")
@@ -26,10 +28,7 @@ function _fifc
 
     set fifc_fzf_query (string trim --chars '\'' -- "$fifc_fzf_query")
 
-    set -l fzf_cmd "
-        fzf \
-            -d \t \
-            --exact \
+    set -l fzf_opts "--exact \
             --tiebreak=length \
             --select-1 \
             --exit-0 \
@@ -42,6 +41,12 @@ function _fifc
             --bind='$fifc_open_keybinding:execute(_fifc_action open {} {q} &> /dev/tty)' \
             --query '$fifc_query' \
             $_fifc_custom_fzf_opts"
+
+    if test -n "$new_cmd"
+        set fzf_cmd (string join -- " " $new_cmd $fzf_opts)
+    else
+        set fzf_cmd (string join -- " " $std_cmd $fzf_opts)
+    end
 
     set -l cmd (string join -- " | " $source_cmd $fzf_cmd)
     # We use eval hack because wrapping source command
