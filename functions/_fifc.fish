@@ -1,4 +1,5 @@
 function _fifc
+    set -f --export SHELL (command --search fish)
     set -l result
     set -Ux _fifc_extract_regex
     set -gx _fifc_complist_path (string join '' (mktemp) "_fifc")
