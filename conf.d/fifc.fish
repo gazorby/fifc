@@ -61,16 +61,4 @@ end
 
 # Fisher
 function _fifc_uninstall --on-event fifc_uninstall
-    for i in (seq (count $_fifc_unordered_comp))
-        set -e $_fifc_unordered_comp[$i]
-    end
-
-    for i in (seq (count $_fifc_ordered_comp))
-        set -e $_fifc_ordered_comp[$i]
-    end
-
-    set -e _fifc_comp_count
-    set -e _fifc_source_count
-    set -e _fifc_unordered_comp
-    set -e _fifc_ordered_comp
 end
