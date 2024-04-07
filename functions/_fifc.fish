@@ -27,7 +27,7 @@ function _fifc
     set fifc_fzf_query (string trim --chars '\'' -- "$fifc_fzf_query")
 
     set -l fzf_cmd "
-        fzf \
+        _fifc_launched_by_fzf=1 SHELL=fish fzf \
             -d \t \
             --exact \
             --tiebreak=length \
