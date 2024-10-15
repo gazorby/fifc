@@ -24,4 +24,4 @@ set actual (_fifc_action "source")
 set -e fifc_commandline
 set -gx _fifc_unordered_comp $curr_fifc_unordered_comp
 set -gx _fifc_unordered_comp $curr_fifc_ordered_comp
-rm $_fifc_complist_path
+command $fifc_rm_cmd $_fifc_complist_path
