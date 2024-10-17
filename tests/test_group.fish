@@ -20,4 +20,4 @@ set actual (_fifc_completion_group)
 
 set -e _fifc_complist
 set -e fifc_commandline
-rm $_fifc_complist_path
+command $fifc_rm_cmd $_fifc_complist_path
