@@ -40,4 +40,4 @@ set -x fifc_query
 set actual (_fifc_action "preview" "$dir/file 1.txt" "1")
 @test "exposed vars fifc_query" "$actual" = 1
 
-rm $_fifc_complist_path
+command $fifc_rm_cmd $_fifc_complist_path
