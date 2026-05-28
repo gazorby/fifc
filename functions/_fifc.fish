@@ -79,7 +79,7 @@ function _fifc
 
     commandline --function repaint
 
-    rm $_fifc_complist_path
+    rm -f $_fifc_complist_path
     # Clean state
     set -e _fifc_extract_regex
     set -e _fifc_custom_fzf_opts
