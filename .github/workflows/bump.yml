@@ -1,0 +1,68 @@
+name: ⏫ Bump the version
+
+on:
+  workflow_dispatch:
+    inputs:
+      releaseType:
+        description: "What kind of release is this?"
+        required: false
+        default: "auto"
+        type: choice
+        options:
+          - "auto"
+          - "major"
+          - "minor"
+          - "patch"
+
+jobs:
+  bump-version:
+    permissions:
+      contents: write
+    name: Bump version
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
+        with:
+          fetch-depth: 0
+
+      - name: Set up git-cliff
+        uses: kenji-miyake/setup-git-cliff@2778609c643a39a2576c4bae2e493b855eb4aee8 # v2
+
+      - name: Get next version
+        if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.releaseType == 'auto' }}
+        id: git-cliff
+        run: |
+          echo "version=$(git cliff --unreleased --bumped-version)" >> $GITHUB_OUTPUT
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Auto version bump
+        if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.releaseType == 'auto' }}
+        id: auto-version-bump
+        uses: callowayproject/bump-my-version@master
+        env:
+          BUMPVERSION_TAG: "true"
+        with:
+          args: --new-version=${{ steps.git-cliff.outputs.version }}
+          github-token: ${{ secrets.PAT }}
+
+      - name: Manual version bump
+        if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.releaseType != 'auto' }}
+        id: manual-version-bump
+        uses: callowayproject/bump-my-version@master
+        env:
+          BUMPVERSION_TAG: "true"
+        with:
+          args: ${{ github.event.inputs.releaseType }}
+          github-token: ${{ secrets.PAT }}
+
+      - name: Check manual bump
+        if: steps.manual-version-bump.outputs.bumped == 'true'
+        run: |
+          echo "Version was bumped from ${{ steps.manual-version-bump.outputs.previous-version }} to ${{ steps.manual-version-bump.outputs.current-version }}!"
+
+      - name: Check auto bump
+        if: steps.auto-version-bump.outputs.bumped == 'true'
+        run: |
+          echo "Version was bumped from ${{ steps.auto-version-bump.outputs.previous-version }} to ${{ steps.auto-version-bump.outputs.current-version }}!"
