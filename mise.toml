@@ -1,0 +1,50 @@
+[tools]
+actionlint = "latest"
+fd = "latest"
+fzf = "latest"
+
+[tasks."install"]
+description = "Install pre-commit hooks"
+alias = "i"
+run = "pre-commit install --install-hooks 2>&1"
+
+[tasks.format]
+description = "Format code"
+alias = "f"
+run = '''
+    #!/usr/bin/env fish
+    fish_indent --write (fd .fish)
+'''
+
+[tasks."format:check"]
+description = "Format code"
+alias = "fc"
+run = '''
+    #!/usr/bin/env fish
+    fish_indent --check (fd .fish)
+'''
+
+[tasks.syntax]
+description = "Check fish syntax"
+alias = "s"
+run = '''
+    #!/usr/bin/env fish
+    fish --no-execute (fd .fish)
+'''
+
+[tasks."ci:lint"]
+description = "Lint CI yaml files"
+run = "actionlint -shellcheck ''"
+
+[tasks.lint]
+description = "Lint fish code"
+alias = "l"
+depends = ["format:check", "syntax", "ci:lint"]
+
+[tasks.test]
+description = "Test fish code"
+alias = "t"
+run = '''
+    #!/usr/bin/env fish
+    fishtape tests/**.fish
+'''

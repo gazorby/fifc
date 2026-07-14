@@ -1,37 +1,45 @@
-name: CI
+name: 🔂 Continuous Integration
 
 on:
   push:
-    branches: [main]
+    branches: [main, ci/*, dependabot/*, renovate/*]
+    tags:
+      - "v*.*.*"
   pull_request:
+    branches: [main]
 
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
+
+concurrency:
+  group: ${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
 
 jobs:
   tests:
+    name: 🔬 ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         os: [macos-latest, ubuntu-latest]
 
     steps:
-      - uses: actions/checkout@v3
-      - uses: fish-actions/install-fish@v1.1.0
+      - name: Checkout
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
 
-      - name: Install abbreviation-tips with Fisher
+      - name: Setup mise
+        uses: jdx/mise-action@dba19683ed58901619b14f395a24841710cb4925 # v4
+        with:
+          cache: true
+          log_level: debug
+
+      - name: Install Fish
+        uses: fish-actions/install-fish@v1.1.0
+
+      - name: Install abbreviation-tips with fisher
         uses: fish-shop/install-plugin@v1
         with:
           plugin-manager: fisher
           plugins: gazorby/fifc
-
-      - name: Set up Homebrew
-        uses: Homebrew/actions/setup-homebrew@master
-        # Homebrew is only missing from ubuntu images per https://github.com/actions/runner-images/issues/6283
-        if: matrix.os == 'ubuntu-latest'
-
-      - name: Install fzf and fd
-        run: brew install fzf fd
 
       - name: Run Fishtape tests
         uses: fish-shop/run-fishtape-tests@v1
@@ -40,32 +48,22 @@ jobs:
         # timeout in case tests get stuck on fzf
         timeout-minutes: 3
 
-  syntax-check:
+  lint:
+    name: ✨ Lint
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
 
-      - uses: fish-actions/install-fish@v1
-
-      - uses: fish-actions/syntax-check@v1
-
-  # check Fish format
-  format-check:
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v3
-
-      - uses: fish-actions/install-fish@v1
-
-      - uses: fish-actions/format-check@v1
-
-  # check Markdown and Yaml format
-  prettier:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actionsx/prettier@v2
+      - name: Setup mise
+        uses: jdx/mise-action@dba19683ed58901619b14f395a24841710cb4925 # v4
         with:
-          args: --check .
+          cache: true
+          log_level: debug
+
+      - name: Install Fish
+        uses: fish-actions/install-fish@v1.1.0
+
+      - name: Run linting
+        run: mise run lint
