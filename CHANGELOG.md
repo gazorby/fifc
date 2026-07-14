@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-## [unreleased]
+## [0.2.0](https://github.com/gazorby/fifc/compare/v0.1.1..v0.2.0) - 2026-07-14
 
 ### 🚀 Features
 
@@ -38,11 +38,16 @@ All notable changes to this project will be documented in this file.
 
 ### ⚙️ Miscellaneous Tasks
 
+- *(bump)* Add an empty requirement.txt because pip cache in bumpversion action need some - ([4d444c3](https://github.com/gazorby/fifc/commit/4d444c357d1a870c21a88437396dddf6841027ea))
 - *(mise)* Add task to install fish plugin from the current folder - ([5a664da](https://github.com/gazorby/fifc/commit/5a664da968ff0a8abf2563e17abc74ea34aa5e8a))
+- *(release)* Bump to v0.2.0 - ([c0f97d7](https://github.com/gazorby/fifc/commit/c0f97d73eec25d6733bfae7172e10b703c461d94))
 - Add mise for ci and local development (#63) - ([2d552aa](https://github.com/gazorby/fifc/commit/2d552aa8aaf683df1fabe495da58b59bf47805d9))
 - Add renovate (#64) - ([1b14313](https://github.com/gazorby/fifc/commit/1b143133bbf117b003f49d5cefd29c72298a924b))
 - Add CLAUDE.md - ([6b37932](https://github.com/gazorby/fifc/commit/6b37932e94d6d0e398cdbc6e1b28cc3d5e27afce))
 - Use fish-shop/install-fish-shell (#69) - ([ab119b8](https://github.com/gazorby/fifc/commit/ab119b818fa37851311794f35f1fda5ed8781c74))
+- Add git-cliff (#74) - ([41c355e](https://github.com/gazorby/fifc/commit/41c355ecedcf78d3edc41e035a52c303c0340711))
+- Add bumpversion config - ([eaa527f](https://github.com/gazorby/fifc/commit/eaa527fd822396edc7b9748bddebba33c59ac9d2))
+- Add an empty requirementx.txt as a workaround for bumpversion - ([ea1cab4](https://github.com/gazorby/fifc/commit/ea1cab421a6c61365cef68fe48fd99938cbd5dd9))
 
 ## New Contributors ❤️
 
