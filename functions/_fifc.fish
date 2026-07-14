@@ -40,6 +40,7 @@ function _fifc
             --header '$header' \
             --preview '_fifc_action preview {} {q}' \
             --bind='$fifc_open_keybinding:execute(_fifc_action open {} {q} &> /dev/tty)' \
+            --bind='tab:down,shift-tab:up,ctrl-space:toggle+down' \
             --query $fifc_safe_query \
             $fifc_custom_fzf_opts"
 
