@@ -37,9 +37,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: bumpversion workaround
-        run: touch requirements.txt
-
       - name: Auto version bump
         if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.releaseType == 'auto' }}
         id: auto-version-bump
