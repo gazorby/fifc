@@ -13,7 +13,6 @@ function _fifc_test_exposed_vars
     end
 end
 
-
 set comp_1 \
     'test -f $fifc_candidate' \
     '.*' \
