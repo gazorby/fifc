@@ -1,6 +1,12 @@
 ## Unreleased ([f9311de..a4ecf65](https://github.com/gazorby/fifc/compare/f9311de..a4ecf65))
 
 - - -
+## [v0.2.2](https://github.com/gazorby/fifc/compare/a4ecf650690e0325ed9fa68464232abc163a1167..v0.2.2) - 2026-07-14
+#### ⚙️ Miscellaneous Tasks
+- move to cocogitto (#75) - ([79e1e0c](https://github.com/gazorby/fifc/commit/79e1e0cd36695d24ed73a24faa78c211594217fb)) - Matthieu
+
+- - -
+
 
 ## [v0.2.1](https://github.com/gazorby/fifc/compare/v0.2.0..v0.2.1) - 2026-07-14
 #### ⚙️ Miscellaneous Tasks
