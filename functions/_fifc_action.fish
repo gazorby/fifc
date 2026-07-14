@@ -53,7 +53,6 @@ function _fifc_action
             eval $$comp[$i][4]
             break
         else if test "$action" = source; and test -n "$$comp[$i][5]"
-            set _fifc_custom_fzf_opts "$$comp[$i][6]"
             if functions "$$comp[$i][5]" 1>/dev/null
                 eval $$comp[$i][5]
             else

@@ -11,8 +11,13 @@ if status is-interactive
     set -qU fifc_open_keybinding
     or set -U fifc_open_keybinding ctrl-o
 
+    set -qU fifc_rm_cmd
+    or set -U fifc_rm_cmd rm
+
+    set -qU fifc_custom_fzf_opts
+    or set -U fifc_custom_fzf_opts
+
     for mode in default insert
-        bind --mode $mode \t _fifc
         bind --mode $mode $fifc_keybinding _fifc
     end
 
@@ -59,7 +64,6 @@ if set -q _fifc_launched_by_fzf
         -o _fifc_open_process \
         -e '^\\h*([0-9]+)'
 end
-
 
 # Fisher
 function _fifc_uninstall --on-event fifc_uninstall

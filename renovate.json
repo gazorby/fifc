@@ -1,0 +1,26 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:best-practices",
+    "schedule:weekly",
+    ":preserveSemverRanges"
+  ],
+  "dependencyDashboard": true,
+  "dependencyDashboardApproval": true,
+  "rebaseWhen": "behind-base-branch",
+  "packageRules": [
+    {
+      "matchCategories": ["cd", "ci"],
+      "dependencyDashboardCategory": "⬆\uFE0F Continuous Integration & Continuous Deployment"
+    },
+    {
+      "matchUpdateTypes": "major",
+      "dependencyDashboardCategory": "\uD83D\uDC94 Major Updates"
+    },
+    {
+      "matchPackageNames": ["fish"],
+      "dependencyDashboardCategory": "</> Language version"
+    }
+  ],
+  "separateMinorPatch": true
+}
