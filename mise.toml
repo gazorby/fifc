@@ -1,3 +1,6 @@
+[env]
+_.file = ".env"
+
 [vars]
 plugin_name = "fifc"
 plugin_github_spec = "gazorby/fifc"
@@ -6,6 +9,7 @@ plugin_github_spec = "gazorby/fifc"
 actionlint = "latest"
 fd = "latest"
 fzf = "latest"
+git-cliff = "latest"
 
 [tasks."install"]
 description = "Install pre-commit hooks"
