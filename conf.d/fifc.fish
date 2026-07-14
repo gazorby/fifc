@@ -11,6 +11,12 @@ if status is-interactive
     set -qU fifc_open_keybinding
     or set -U fifc_open_keybinding ctrl-o
 
+    set -qU fifc_rm_cmd
+    or set -U fifc_rm_cmd rm
+
+    set -qU fifc_custom_fzf_opts
+    or set -U fifc_custom_fzf_opts
+
     for mode in default insert
         bind --mode $mode $fifc_keybinding _fifc
     end
