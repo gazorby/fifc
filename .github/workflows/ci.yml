@@ -32,8 +32,8 @@ jobs:
           cache: true
           log_level: debug
 
-      - name: Install Fish
-        uses: fish-actions/install-fish@v1.1.0
+      - name: Install fish shell
+        uses: fish-shop/install-fish-shell@e83b4f8c7c4d80c3b65ee0eb5d0e3bf4816536ee # v2
 
       - name: Install abbreviation-tips with fisher
         uses: fish-shop/install-plugin@1ca93fe158b1ad8251835d4e310f99a3ec1f3d86 # v2
@@ -62,8 +62,8 @@ jobs:
           cache: true
           log_level: debug
 
-      - name: Install Fish
-        uses: fish-actions/install-fish@v1.1.0
+      - name: Install fish shell
+        uses: fish-shop/install-fish-shell@e83b4f8c7c4d80c3b65ee0eb5d0e3bf4816536ee # v2
 
       - name: Run linting
         run: mise run lint
