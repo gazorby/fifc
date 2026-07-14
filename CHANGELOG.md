@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.2.1](https://github.com/gazorby/fifc/compare/v0.2.0..v0.2.1) - 2026-07-14
+
+### ⚙️ Miscellaneous Tasks
+
+- *(release)* Bump to v0.2.1 - ([f9311de](https://github.com/gazorby/fifc/commit/f9311deb7f32608eeb26f82b1411cb80ab4e2a00))
+- Trigger cd after ci on tag - ([d6e5082](https://github.com/gazorby/fifc/commit/d6e508230f39ad68d751df737d5473ab14da77a4))
+
+## New Contributors ❤️
+
+* @github-actions[bot] made their first contribution
 ## [0.2.0](https://github.com/gazorby/fifc/compare/v0.1.1..v0.2.0) - 2026-07-14
 
 ### 🚀 Features
