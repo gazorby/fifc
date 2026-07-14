@@ -25,4 +25,4 @@ commitizen:
     - - disabled
       - fg:#858585 italic
   tag_format: v$version
-  version: 0.2.0
+  version: 0.2.1
