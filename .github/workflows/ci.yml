@@ -36,7 +36,7 @@ jobs:
         uses: fish-actions/install-fish@v1.1.0
 
       - name: Install abbreviation-tips with fisher
-        uses: fish-shop/install-plugin@v1
+        uses: fish-shop/install-plugin@1ca93fe158b1ad8251835d4e310f99a3ec1f3d86 # v2
         with:
           plugin-manager: fisher
           plugins: gazorby/fifc
