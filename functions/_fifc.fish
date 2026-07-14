@@ -78,8 +78,8 @@ function _fifc
 
     commandline --function repaint
 
-    command $fifc_rm_cmd $_fifc_complist_path
     # Clean state
+    command $fifc_rm_cmd $_fifc_complist_path
     set -e _fifc_extract_regex
     set -e _fifc_complist_path
     set -e fifc_token
