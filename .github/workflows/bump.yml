@@ -29,7 +29,9 @@ jobs:
           token: ${{ secrets.PAT }}
 
       - name: Bump version and changelog
-        uses: cocogitto/cocogitto-action@390bda87a19bf627e03ad075c67a11e9ddbb7547 # v4
+        uses: cocogitto/cocogitto-action@52d0023b4396897f1815648e553db2ab8d782f3a # v4
         with:
           command: bump
           args: ${{ github.event.inputs.releaseType == 'auto' && '--auto' || format('--{0}', github.event.inputs.releaseType) }}
+          git-user: 'github-actions[bot]'
+          git-user-email: 'github-actions[bot]@users.noreply.github.com'
