@@ -55,7 +55,7 @@ Helper functions follow `_fifc_<action>_<kind>`: `_fifc_source_files`, `_fifc_pr
 
 ## Conventions & gotchas
 
-- **External tool fallbacks**: fifc prefers modern tools and degrades gracefully — `bat`→`cat`, `chafa`→`file`, `fd`→`find`, `exa`→`ls`, `ripgrep`→`pcregrep`, `procs`→`ps`, `hexyl`→`file`. Per-tool extra flags come from `$fifc_<tool>_opts` list vars (e.g. `$fifc_fd_opts`). New preview/source logic touching these tools must honor the fallback + opts pattern.
+- **External tool fallbacks**: fifc prefers modern tools and degrades gracefully — `bat`→`cat`, `chafa`→`file`, `fd`→`find`, `eza`→`exa`→`ls`, `ripgrep`→`pcregrep`, `procs`→`ps`, `hexyl`→`file`. Per-tool extra flags come from `$fifc_<tool>_opts` list vars (e.g. `$fifc_fd_opts`). New preview/source logic touching these tools must honor the fallback + opts pattern.
 - **Path escaping**: paths with spaces are handled explicitly (needs fish 3.4+). `_fifc.fish` special-cases `~`-prefixed and `$`-prefixed tokens when escaping results — don't naively `string escape` everything.
 - **Version guarding**: use `_fifc_test_version` for fish-version-dependent behavior (e.g. `complete --escape` only on 3.4+).
 - **Temp file cleanup**: the completion list temp file is force-removed (`rm -f`) to survive users who alias `rm` to `rm -i`.

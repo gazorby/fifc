@@ -72,7 +72,7 @@ fifc can use modern tools if available:
 | [chafa](https://github.com/hpjansson/chafa)      | file        | Preview images, gif, pdf etc              | `$fifc_chafa_opts` |
 | [hexyl](https://github.com/sharkdp/hexyl)        | file        | Preview binaries                          | `$fifc_hexyl_opts` |
 | [fd](https://github.com/sharkdp/fd)              | find        | Complete paths                            | `$fifc_fd_opts`    |
-| [exa](https://github.com/ogham/exa)              | ls          | Preview directories                       | `$fifc_exa_opts`   |
+| [eza](https://github.com/eza-community/eza)      | ls          | Preview directories                       | `$fifc_eza_opts`   |
 | [ripgrep](https://github.com/BurntSushi/ripgrep) | pcregrep    | Search options in man pages               | -                  |
 | [procs](https://github.com/dalance/procs)        | ps          | Complete processes and preview their tree | `$fifc_procs_opts` |
 | [broot](https://github.com/Canop/broot)          | -           | Explore directory trees                   | `$fifc_broot_opts` |
@@ -89,7 +89,7 @@ Show hidden file by default:
 
 - `set -U fifc_fd_opts --hidden`
 
-⚠️ Don't use quotes in variables, set them as a list: `set -U fifc_exa_opts --icons --tree`
+⚠️ Don't use quotes in variables, set them as a list: `set -U fifc_eza_opts --icons --tree`
 
 ## 🛠️ Write your own rules
 
