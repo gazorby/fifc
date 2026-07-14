@@ -4,9 +4,7 @@ env:
   GIT_USERNAME: github-actions[bot]
 
 on:
-  push:
-    tags:
-      - "v*.*.*"
+  workflow_dispatch:
 
 jobs:
   changelog:

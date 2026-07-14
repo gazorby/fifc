@@ -15,9 +15,27 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  pre:
+    runs-on: ubuntu-latest
+    # Map a step output to a job output
+    outputs:
+      should_skip: ${{ steps.skip_check.outputs.should_skip }}
+    steps:
+      - name: Skip check
+        id: skip_check
+        uses: step-security/skip-duplicate-actions@4eef6ae57f2ca5ea100e5c1da2ead9138483f53c # v5
+        with:
+          concurrent_skipping: "never"
+          skip_after_successful_duplicate: "true"
+          paths_ignore: '["**/**.md", "**/.vscode/**", "**/.idea/**"]'
+          paths: '["completions/**", "functions/**", "conf.d/**", "tests/**", ".github/workflows/ci.yaml", "mise.toml"]'
+
+
   tests:
     name: 🔬 ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
+    needs: pre
+    if: github.ref_type == 'tag' || needs.pre.outputs.should_skip != 'true'
     strategy:
       matrix:
         os: [macos-latest, ubuntu-latest]
@@ -51,6 +69,8 @@ jobs:
   lint:
     name: ✨ Lint
     runs-on: ubuntu-latest
+    needs: pre
+    if: github.ref_type == 'tag' || needs.pre.outputs.should_skip != 'true'
 
     steps:
       - name: Checkout repository
@@ -67,3 +87,22 @@ jobs:
 
       - name: Run linting
         run: mise run lint
+
+  # Ensure the workflow is successful only if all job in matrixes are successful
+  result:
+    name: ✅ Result
+    if: (github.ref_type == 'tag' || needs.pre.outputs.should_skip != 'true') && always()
+    runs-on: ubuntu-latest
+    needs:
+      - pre
+      - tests
+      - lint
+    steps:
+      - name: Mark workflow as failed if lint or tests did not pass or were cancelled
+        if: contains(fromJson('["failure", "cancelled"]'), needs.tests.result) || contains(fromJson('["failure", "cancelled"]'), needs.lint.result)
+        run: exit 1
+      - name: Invoke release workflow
+        if: github.ref_type == 'tag'
+        uses: benc-uk/workflow-dispatch@e2e5e9a103e331dad343f381a29e654aea3cf8fc # v1
+        with:
+          workflow: 🚀 Continuous Deployment
