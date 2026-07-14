@@ -1,3 +1,7 @@
+[vars]
+plugin_name = "fifc"
+plugin_github_spec = "gazorby/fifc"
+
 [tools]
 actionlint = "latest"
 fd = "latest"
@@ -47,4 +51,15 @@ alias = "t"
 run = '''
     #!/usr/bin/env fish
     fishtape tests/**.fish
+'''
+
+[tasks."install:plugin:dev"]
+description = "Install fish plugin from the current folder"
+dir = "{{ config_root }}"
+run = '''
+    #!/usr/bin/env fish
+    if fisher list {{ vars.plugin_name }}
+        fisher remove {{ vars.plugin_github_spec }}; or fisher remove .
+    end
+    fisher install .
 '''
