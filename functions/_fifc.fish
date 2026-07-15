@@ -25,7 +25,7 @@ function _fifc
     set -gx fifc_group (_fifc_completion_group)
     set source_cmd (_fifc_action source)
 
-    set fifc_safe_query (string unescape -- "$fifc_query")
+    set fifc_safe_query (string unescape -- "$fifc_query" | string escape --style=script)
 
     set -l fzf_cmd "
         _fifc_launched_by_fzf=1 SHELL=fish fzf \
@@ -42,7 +42,7 @@ function _fifc
             --preview '_fifc_action preview {} {q}' \
             --bind='$fifc_open_keybinding:execute(_fifc_action open {} {q} &> /dev/tty)' \
             --bind='tab:down,shift-tab:up,ctrl-space:toggle+down' \
-            --query '$fifc_safe_query' \
+            --query $fifc_safe_query \
             $fifc_custom_fzf_opts \
             $_fifc_rules_fzf_opts"
 
