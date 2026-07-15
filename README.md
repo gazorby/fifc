@@ -64,6 +64,21 @@ To append a custom fzf command, for example to disable the `--exact` flag and in
 set -U fifc_custom_fzf_opts +e
 ```
 
+### Navigation
+
+Inside the fzf picker, fifc binds a few keys to make navigation and multi-selection feel like completion:
+
+| Key            | Action                                                          |
+| -------------- | --------------------------------------------------------------- |
+| `tab`          | Move to the next candidate                                      |
+| `shift-tab`    | Move to the previous candidate                                  |
+| `ctrl-space`   | Select the current candidate and move to the next one           |
+| `ctrl-o`       | Run the `open` command on the current candidate (see `fifc_open_keybinding`) |
+
+fifc uses fzf `--multi`, so selecting several candidates with `ctrl-space` inserts them all at once.
+
+You can override or extend these binds through `fifc_custom_fzf_opts` (later `--bind` values win).
+
 fifc can use modern tools if available:
 
 | Prefer                                           | Fallback to | Used for                                  | Custom options     |

@@ -2,6 +2,7 @@ function _fifc
     set -f --export SHELL (command --search fish)
     set -l result
     set -Ux _fifc_extract_regex
+    set -Ux _fifc_rules_fzf_opts
     set -gx _fifc_complist_path (string join '' (mktemp) "_fifc")
     set -gx fifc_extracted
     set -gx fifc_commandline
@@ -24,7 +25,7 @@ function _fifc
     set -gx fifc_group (_fifc_completion_group)
     set source_cmd (_fifc_action source)
 
-    set fifc_safe_query (string unescape -- "$fifc_query")
+    set fifc_safe_query (string unescape -- "$fifc_query" | string escape --style=script)
 
     set -l fzf_cmd "
         _fifc_launched_by_fzf=1 SHELL=fish fzf \
@@ -41,8 +42,9 @@ function _fifc
             --preview '_fifc_action preview {} {q}' \
             --bind='$fifc_open_keybinding:execute(_fifc_action open {} {q} &> /dev/tty)' \
             --bind='tab:down,shift-tab:up,ctrl-space:toggle+down' \
-            --query '$fifc_safe_query' \
-            $fifc_custom_fzf_opts"
+            --query $fifc_safe_query \
+            $fifc_custom_fzf_opts \
+            $_fifc_rules_fzf_opts"
 
     set -l cmd (string join -- " | " $source_cmd $fzf_cmd)
     # We use eval hack because wrapping source command
@@ -82,6 +84,7 @@ function _fifc
     # Clean state
     command $fifc_rm_cmd $_fifc_complist_path
     set -e _fifc_extract_regex
+    set -e _fifc_rules_fzf_opts
     set -e _fifc_complist_path
     set -e fifc_token
     set -e fifc_group
