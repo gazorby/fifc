@@ -1,3 +1,5 @@
+set curr_fifc_unordered_comp $_fifc_unordered_comp
+set curr_fifc_ordered_comp $_fifc_ordered_comp
 set test_fzf_argv_path (mktemp)
 set test_fifc_token
 
@@ -33,6 +35,9 @@ function _test_fzf_query
 end
 
 set fifc_rm_cmd rm
+set _fifc_ordered_comp
+set comp_1 true '' '' '' 'printf "%s\n" candidate'
+set _fifc_unordered_comp comp_1
 
 # fzf receives the unescaped query for paths with spaces.
 set actual (_test_fzf_query 'tests/_resources/dir\ with\ spaces/')
@@ -43,3 +48,5 @@ set actual (_test_fzf_query "tests/_resources/dir\\'apostrophe/")
 @test "fifc fzf query preserves apostrophe" "$actual" = "tests/_resources/dir'apostrophe/"
 
 command rm $test_fzf_argv_path
+set -gx _fifc_unordered_comp $curr_fifc_unordered_comp
+set -gx _fifc_ordered_comp $curr_fifc_ordered_comp
