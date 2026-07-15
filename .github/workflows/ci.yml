@@ -27,8 +27,8 @@ jobs:
         with:
           concurrent_skipping: "never"
           skip_after_successful_duplicate: "true"
-          paths_ignore: '["**/**.md", "**/.vscode/**", "**/.idea/**"]'
-          paths: '["completions/**", "functions/**", "conf.d/**", "tests/**", ".github/workflows/ci.yaml", "mise.toml"]'
+          paths_ignore: '["**/*.md", "**/.vscode/**", "**/.idea/**"]'
+          paths: '["**/**.fish", "tests/_resources/**", ".github/workflows/ci.yaml", "mise.toml"]'
 
 
   tests:
@@ -57,7 +57,7 @@ jobs:
         uses: fish-shop/install-plugin@1ca93fe158b1ad8251835d4e310f99a3ec1f3d86 # v2
         with:
           plugin-manager: fisher
-          plugins: gazorby/fifc
+          plugins: ${{ github.event.pull_request.head.repo.full_name || github.repository }}@${{ github.head_ref || github.ref_name }}
 
       - name: Run Fishtape tests
         uses: fish-shop/run-fishtape-tests@d3f44af7c30393801362c283c97fbd753ded76ed # v2
