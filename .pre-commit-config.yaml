@@ -27,6 +27,6 @@ repos:
     hooks:
       - id: validate-commit-msg
         name: Validate commit message
-        entry: cog verify --file $1
-        language: script
-        stages: [commit-msg]
+        entry: cog verify --file
+        language: system
+        stages: [ commit-msg ]
