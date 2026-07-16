@@ -62,7 +62,7 @@ jobs:
       - name: Run Fishtape tests
         uses: fish-shop/run-fishtape-tests@d3f44af7c30393801362c283c97fbd753ded76ed # v2
         with:
-          pattern: tests/**.fish
+          patterns: tests/**.fish
         # timeout in case tests get stuck on fzf
         timeout-minutes: 3
 
