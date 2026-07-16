@@ -67,8 +67,9 @@ function _fifc
     # Add space trailing space only if:
     # - there is no trailing space already present
     # - Result is not a directory
-    # We need to unescape $result for directory test as we escaped it before
-    if test (count $result) -eq 1; and not test -d (string unescape -- $result[1])
+    # Expand tilde before directory test since fish doesn't expand ~ from variables
+    set -l result_path (_fifc_expand_tilde (string unescape -- $result[1]))
+    if test (count $result) -eq 1; and not test -d "$result_path"
         set -l buffer (string split -- "$fifc_commandline" (commandline -b))
         if not string match -- ' *' "$buffer[2]"
             set -a result ''
