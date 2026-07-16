@@ -1,6 +1,17 @@
 ## Unreleased ([f9311de..a4ecf65](https://github.com/gazorby/fifc/compare/f9311de..a4ecf65))
 
 - - -
+## [v0.2.3](https://github.com/gazorby/fifc/compare/643d9081c63de6947e03bdecbb9703e6aa65c6ff..v0.2.3) - 2026-07-16
+#### 🐛 Bug Fixes
+- restore fzf options set by rules - ([b37cacd](https://github.com/gazorby/fifc/commit/b37cacdf407d849bc3d14a7defdef400beba7c4a)) - gazorby
+#### ⚙️ Miscellaneous Tasks
+- (**cog**) add manual ump profile; validate commit msg in pre-commit - ([b47a21f](https://github.com/gazorby/fifc/commit/b47a21fb1bfdd372f1a00c7b407a0a85a55052e5)) - gazorby
+- fix fishtape job input - ([1778394](https://github.com/gazorby/fifc/commit/1778394bb7c4891a779aaffddfd527d565b136cd)) - gazorby
+- fix test not installing plugin from the current branch - ([53cbc6f](https://github.com/gazorby/fifc/commit/53cbc6fd51b51d4c26b016d8267906c797d2cfdd)) - gazorby
+- use latest cocogitto version - ([643d908](https://github.com/gazorby/fifc/commit/643d9081c63de6947e03bdecbb9703e6aa65c6ff)) - gazorby
+
+- - -
+
 ## [v0.2.2](https://github.com/gazorby/fifc/compare/a4ecf650690e0325ed9fa68464232abc163a1167..v0.2.2) - 2026-07-14
 #### ⚙️ Miscellaneous Tasks
 - move to cocogitto (#75) - ([79e1e0c](https://github.com/gazorby/fifc/commit/79e1e0cd36695d24ed73a24faa78c211594217fb)) - Matthieu
