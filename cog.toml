@@ -1,17 +1,25 @@
 tag_prefix = "v"
 branch_whitelist = ["main"]
 ignore_merge_commits = true
+# Use a non-native marker (not one of GitHub's [skip ci]/[ci skip]/... strings)
+# so we can do our own skip logic in workflow
+skip_ci = "[ci-skip]"
 post_bump_hooks = [
-  "git push",
-  "git push origin {{version_tag}}",
+    "git push",
+    "git push origin {{version_tag}}",
 ]
 
 [changelog]
 path = "CHANGELOG.md"
-template = "remote"
+template = ".github/changelog.tera"
 remote = "github.com"
 owner = "gazorby"
 repository = "fifc"
+
+authors = [
+    { signature = "gazorby", username = "gazorby" },
+    { signature = "Matthieu", username = "gazorby" }
+]
 
 [commit_types]
 feat = { changelog_title = "🚀 Features" }
@@ -19,6 +27,7 @@ fix = { changelog_title = "🐛 Bug Fixes" }
 docs = { changelog_title = "📚 Documentation" }
 perf = { changelog_title = "⚡ Performance" }
 refactor = { changelog_title = "🚜 Refactor" }
+ref = { changelog_title = "🚜 Refactor" }
 style = { changelog_title = "🎨 Styling" }
 build = { changelog_title = "⚙️ Miscellaneous Tasks" }
 ci = { changelog_title = "⚙️ Miscellaneous Tasks" }
@@ -27,13 +36,11 @@ revert = { changelog_title = "◀️ Revert" }
 chore = { omit_from_changelog = true }
 test = { omit_from_changelog = true }
 
-
 [bump_profiles.manual]
 pre_bump_hooks = [
     "mise run lint",
-    "mise run test"
 ]
 
 post_bump_hooks = [
-    "echo 'This is a manual bump, no release or push to remote will be triggered'"
+    "echo 'Manual bump from {{latest}} to {{version}}.'"
 ]

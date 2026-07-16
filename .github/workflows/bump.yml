@@ -32,6 +32,6 @@ jobs:
         uses: cocogitto/cocogitto-action@52d0023b4396897f1815648e553db2ab8d782f3a # v4
         with:
           command: bump
-          args: ${{ github.event.inputs.releaseType == 'auto' && '--auto' || format('--{0}', github.event.inputs.releaseType) }}
+          args: ${{ github.event.inputs.releaseType == 'auto' && '--auto --skip-ci' || format('--{0} --skip-ci', github.event.inputs.releaseType) }}
           git-user: 'github-actions[bot]'
           git-user-email: 'github-actions[bot]@users.noreply.github.com'
