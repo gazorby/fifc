@@ -8,7 +8,8 @@ function _fifc_action
 
     # Variables exposed to evaluated commands
     set -x fifc_desc (sed -nr (printf 's/^%s[[:blank:]]+(.*)/\\\1/p' "$regex_val") $_fifc_complist_path | string trim)
-    set -x fifc_candidate "$argv[2]"
+    # Expand ~ to $HOME so test -f/d and preview commands work with variable values
+    set -x fifc_candidate (_fifc_expand_tilde "$argv[2]")
     set -x fifc_extracted (string match --regex --groups-only -- "$_fifc_extract_regex" "$argv[2]")
 
     if test "$action" = preview
