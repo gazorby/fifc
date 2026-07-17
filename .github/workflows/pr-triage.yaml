@@ -1,0 +1,21 @@
+name: 🏷️ Pull requests triage
+
+on:
+  pull_request_target:
+    types: [ opened, reopened, edited, synchronize, ready_for_review, labeled, unlabeled ]
+  pull_request:
+    types: [ opened, reopened, edited, synchronize, ready_for_review, labeled, unlabeled ]
+
+permissions:
+  contents: read        # the config file
+  issues: write         # for labeling issues (on: issues)
+  pull-requests: write  # for labeling pull requests (on: pull_request_target or on: pull_request)
+
+jobs:
+  labeler:
+    name: Labeler
+    runs-on: ubuntu-slim
+    steps:
+      - uses: fuxingloh/multi-labeler@b40774a90b449fe5311b96cef6bab906b671342d # v5
+        with:
+          config-path: .github/pr-labeler.yaml
