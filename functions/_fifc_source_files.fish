@@ -8,10 +8,6 @@ function _fifc_source_files -d "Return a command to recursively find files"
     set -l escaped_home (string escape --style=regex -- "$HOME")
     set -l home_re "^(\x1b\[[0-9;]*m)*$escaped_home"
 
-    if string match --quiet -- '~*' "$fifc_query"
-        set -e fifc_query
-    end
-
     if type -q fd
         if _fifc_test_version (fd --version) -ge "8.3.0"
             set fd_custom_opts --strip-cwd-prefix
