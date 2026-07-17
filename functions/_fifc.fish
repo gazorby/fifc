@@ -52,9 +52,9 @@ function _fifc
     eval $cmd | while read -l token
         # don't escape '~' for path, `$` for environ
         if string match --quiet '~*' -- $token
-            set -a result (string join -- "" "~" (string sub --start 2 -- $token | string escape))
+            set -a result (string join -- "" "~" (string sub --start 2 -- $token | string escape --no-quoted))
         else if string match --quiet '$*' -- $token
-            set -a result (string join -- "" "\$" (string sub --start 2 -- $token | string escape))
+            set -a result (string join -- "" "\$" (string sub --start 2 -- $token | string escape --no-quoted))
         else
             set -a result (string escape --no-quoted -- $token)
         end
