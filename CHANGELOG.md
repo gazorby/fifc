@@ -11,6 +11,21 @@
 - [@gazorby](https://github.com/gazorby)
 
 - - -
+## [v0.2.4](https://github.com/gazorby/fifc/compare/0c813458b20d318c927a3f52b584e1afa4b578a8..v0.2.4) - 2026-07-17
+#### 🐛 Bug Fixes
+- Fixes for paths that start with `~` ([#76](https://github.com/gazorby/fifc/pull/76)) - ([d1d87cd](https://github.com/gazorby/fifc/commit/d1d87cdf8d34b6e731ead94d100ca7186cce576b)) - justbispo
+#### ⚙️ Miscellaneous Tasks
+- (**labelers**) update config - ([a126de7](https://github.com/gazorby/fifc/commit/a126de710d0336a013a99f64c8d9faaf7933d3e7)) - [@gazorby](https://github.com/gazorby)
+- update pr title lint workflow - ([386f705](https://github.com/gazorby/fifc/commit/386f705dcf009d76561609be987ffdf3399eabaa)) - [@gazorby](https://github.com/gazorby)
+- add pr title lint workflow - ([17ae37f](https://github.com/gazorby/fifc/commit/17ae37f4652c54d671836914768c6f78a71af282)) - [@gazorby](https://github.com/gazorby)
+- add new changelog format - ([1a075e9](https://github.com/gazorby/fifc/commit/1a075e9e1233c853fce3edfad4b15cb0b0d76649)) - [@gazorby](https://github.com/gazorby)
+- don't run duplicate ci workflow on release - ([0c81345](https://github.com/gazorby/fifc/commit/0c813458b20d318c927a3f52b584e1afa4b578a8)) - [@gazorby](https://github.com/gazorby)
+
+#### 🤝️ Contributors
+- [@gazorby](https://github.com/gazorby)
+
+- - -
+
 
 ## [v0.2.2](https://github.com/gazorby/fifc/compare/v0.2.1..v0.2.2) - 2026-07-14
 #### ⚙️ Miscellaneous Tasks
