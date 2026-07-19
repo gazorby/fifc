@@ -13,39 +13,67 @@
     ## Unreleased ([{{ from_shorthand ~ ".." ~ to_shorthand }}]({{repository_url ~ "/compare/" ~ from_shorthand ~ ".." ~ to_shorthand}}))
 {% endif -%}
 
-{% for value in commits | group_by_type-%}
+{% for value in commits | group_by_type -%}
 
 #### {{ value.0 | upper_first }}
+{% set_global type_commits = [] -%}
+{% set_global seen = [] -%}
+{#- Collect this type's commits: scoped (grouped and sorted by scope) first, then unscoped -#}
 {% for scope, scoped_commits in value.1 | group_by(attribute="scope") -%}
-{% for commit in scoped_commits | sort(attribute="scope") -%}
-{%- set line = macros::remote(commit=commit) -%}
-{%- if repository_url and commit.summary is matching("\(#\d+\)$") -%}
-    {%- set num = commit.summary | split(pat="(#") | last | trim_end_matches(pat=")") -%}
-    {%- set line = line | replace(from="(#" ~ num ~ ")", to="([#" ~ num ~ "](" ~ repository_url ~ "/pull/" ~ num ~ "))") -%}
-{%- endif -%}
-{{ line }}
+    {% for commit in scoped_commits | sort(attribute="scope") -%}
+        {%- set_global type_commits = type_commits | concat(with=commit) -%}
+    {% endfor -%}
 {% endfor -%}
-{% endfor -%}
-
 {% for commit in value.1 | unscoped -%}
-{%- set line = macros::remote(commit=commit) -%}
-{%- if repository_url and commit.summary is matching("\(#\d+\)$") -%}
-    {%- set num = commit.summary | split(pat="(#") | last | trim_end_matches(pat=")") -%}
-    {%- set line = line | replace(from="(#" ~ num ~ ")", to="([#" ~ num ~ "](" ~ repository_url ~ "/pull/" ~ num ~ "))") -%}
-{%- endif -%}
+    {%- set_global type_commits = type_commits | concat(with=commit) -%}
+{% endfor -%}
+{% for commit in type_commits -%}
+    {#- Omit a repeated commit: skip when this scope + summary was already rendered in this section -#}
+    {%- set key = commit.summary -%}
+    {%- if commit.scope -%}
+        {%- set key = commit.scope ~ "|" ~ commit.summary -%}
+    {%- endif -%}
+    {%- if key not in seen -%}
+        {%- set_global seen = seen | concat(with=key) -%}
+        {%- set line = macros::remote(commit=commit) -%}
+        {#- Link an unmapped author's plain signature (no space) to their profile, mirroring the macro's mapped-author link -#}
+        {%- if not commit.author and repository_url and not (commit.signature is matching(" ")) -%}
+            {%- set line = line | replace(from=")) - " ~ commit.signature, to=")) - [@" ~ commit.signature ~ "](" ~ platform ~ "/" ~ commit.signature ~ ")") -%}
+        {%- endif -%}
+        {#- Turn a trailing PR reference "(#123)" into a link to the pull request -#}
+        {%- if repository_url and commit.summary is matching("\(#\d+\)$") -%}
+            {%- set num = commit.summary | split(pat="(#") | last | trim_end_matches(pat=")") -%}
+            {%- set line = line | replace(from="(#" ~ num ~ ")", to="([#" ~ num ~ "](" ~ repository_url ~ "/pull/" ~ num ~ "))") -%}
+        {%- endif -%}
 {{ line }}
+{% endif -%}
 {% endfor -%}
 {% endfor -%}
+{#- Collect unique contributors: mapped authors, unmapped spaceless signatures, and co-authors, linked when possible -#}
 {% set_global contributors = [] -%}
 {% for commit in commits -%}
-{%- if commit.author -%}{% set_global contributors = contributors | concat(with=commit.author) %}{%- endif -%}
-{%- for footer in commit.footers -%}
-{%- if footer.github_co_authored_by and footer.github_co_authored_by.username -%}{% set_global contributors = contributors | concat(with=footer.github_co_authored_by.username) %}{%- endif -%}
-{%- endfor -%}
+    {%- if commit.author -%}
+        {%- set_global contributors = contributors | concat(with="[@" ~ commit.author ~ "](" ~ platform ~ "/" ~ commit.author ~ ")") -%}
+    {%- elif commit.signature is matching(" ") -%}
+        {%- set_global contributors = contributors | concat(with=commit.signature) -%}
+    {%- else -%}
+        {%- set_global contributors = contributors | concat(with="[@" ~ commit.signature ~ "](" ~ platform ~ "/" ~ commit.signature ~ ")") -%}
+    {%- endif -%}
+    {%- for footer in commit.footers -%}
+        {%- if footer.github_co_authored_by and footer.github_co_authored_by.username -%}
+            {%- set_global contributors = contributors | concat(with="[@" ~ footer.github_co_authored_by.username ~ "](" ~ platform ~ "/" ~ footer.github_co_authored_by.username ~ ")") -%}
+        {%- elif footer.github_co_authored_by and footer.github_co_authored_by.user -%}
+            {%- if footer.github_co_authored_by.user is matching(" ") -%}
+                {%- set_global contributors = contributors | concat(with=footer.github_co_authored_by.user) -%}
+            {%- else -%}
+                {%- set_global contributors = contributors | concat(with="[@" ~ footer.github_co_authored_by.user ~ "](" ~ platform ~ "/" ~ footer.github_co_authored_by.user ~ ")") -%}
+            {%- endif -%}
+        {%- endif -%}
+    {%- endfor -%}
 {%- endfor -%}
 {%- set contributors = contributors | unique | sort -%}
 {% if contributors | length > 0 %}
 #### 🤝️ Contributors
-{% for c in contributors %}- [@{{ c }}]({{ platform }}/{{ c }})
+{% for c in contributors %}- {{ c }}
 {% endfor -%}
 {% endif -%}

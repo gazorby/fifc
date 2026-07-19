@@ -22,16 +22,16 @@ authors = [
 ]
 
 [commit_types]
-feat = { changelog_title = "🚀 Features" }
-fix = { changelog_title = "🐛 Bug Fixes" }
-docs = { changelog_title = "📚 Documentation" }
-perf = { changelog_title = "⚡ Performance" }
-refactor = { changelog_title = "🚜 Refactor" }
-ref = { changelog_title = "🚜 Refactor" }
-style = { changelog_title = "🎨 Styling" }
-build = { changelog_title = "⚙️ Miscellaneous Tasks" }
-ci = { changelog_title = "⚙️ Miscellaneous Tasks" }
-revert = { changelog_title = "◀️ Revert" }
+feat = { changelog_title = "🚀 Features", order = 1 }
+fix = { changelog_title = "🐛 Bug Fixes", order = 2 }
+perf = { changelog_title = "⚡ Performance", order = 3 }
+refactor = { changelog_title = "🚜 Refactor", order = 4 }
+ref = { changelog_title = "🚜 Refactor", order = 4 }
+revert = { changelog_title = "◀️ Revert", order = 5 }
+docs = { changelog_title = "📚 Documentation", order = 6 }
+build = { changelog_title = "⚙️ Miscellaneous Tasks", order = 7 }
+ci = { changelog_title = "⚙️ Miscellaneous Tasks", order = 7 }
+style = { changelog_title = "🎨 Styling", order = 8 }
 
 chore = { omit_from_changelog = true }
 test = { omit_from_changelog = true }
