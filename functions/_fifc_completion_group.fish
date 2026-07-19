@@ -6,11 +6,20 @@ function _fifc_completion_group -d "Determine completion group"
     # Directories
     set -l dir_test "test -d $complist[1]"
     set dir_test (string join -- " -a -d " $dir_test $complist[2..-1])
-    if test -n "$is_null"; and eval "$dir_test"
+
+    # Only treat the completion as file/dir path completion when fish's list is
+    # the plain listing of the completed dir. Otherwise fish is offering specific
+    # paths (e.g. `git worktree remove`), which must be forwarded unchanged.
+    set -l generic 0
+    if test -n "$is_null"; and _fifc_is_generic_path "$path_candidate"
+        set generic 1
+    end
+
+    if test "$generic" = 1; and eval "$dir_test"
         echo directories
         # Files
         # When complist is big, avoid calling ls with all arguments if first is neither a file nor a directory
-    else if test -n "$is_null"; and echo $complist | xargs ls -d -- &>/dev/null
+    else if test "$generic" = 1; and echo $complist | xargs ls -d -- &>/dev/null
         echo files
         # Options
     else if string match --regex --quiet -- '\h+\-+\h*$' $fifc_commandline
