@@ -18,9 +18,11 @@ function _fifc_source_files -d "Return a command to recursively find files"
         else if test "$raw_path" = "."
             echo "fd . $fifc_fd_opts --color=always --hidden $fd_custom_opts"
         else if test -n "$hidden"
-            echo "fd . $fifc_fd_opts --color=always --hidden -- $escaped_path | string replace --regex -- \"$home_re\" '~'"
+            # Explicitly-typed path: reveal gitignored entries (bare completion still respects .gitignore)
+            echo "fd . $fifc_fd_opts --color=always --no-ignore-vcs --hidden -- $escaped_path | string replace --regex -- \"$home_re\" '~'"
         else
-            echo "fd . $fifc_fd_opts --color=always -- $escaped_path | string replace --regex -- \"$home_re\" '~'"
+            # Explicitly-typed path: reveal gitignored entries (bare completion still respects .gitignore)
+            echo "fd . $fifc_fd_opts --color=always --no-ignore-vcs -- $escaped_path | string replace --regex -- \"$home_re\" '~'"
         end
     else if test -n "$hidden"
         # Use sed to strip cwd prefix
