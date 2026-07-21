@@ -8,6 +8,15 @@
 - [@gazorby](https://github.com/gazorby)
 
 - - -
+## [v0.3.1](https://github.com/gazorby/fifc/compare/a5a10541f409ba35a74de86e97c79078a49f377f..v0.3.1) - 2026-07-21
+#### ⚙️ Miscellaneous Tasks
+- (**changelog**) resolve github usernames before bump - ([a5a1054](https://github.com/gazorby/fifc/commit/a5a10541f409ba35a74de86e97c79078a49f377f)) - [@gazorby](https://github.com/gazorby)
+
+#### 🤝️ Contributors
+- [@gazorby](https://github.com/gazorby)
+
+- - -
+
 
 ## [v0.2.4](https://github.com/gazorby/fifc/compare/v0.2.3..v0.2.4) - 2026-07-18
 #### 🐛 Bug Fixes
