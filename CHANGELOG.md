@@ -1,12 +1,4 @@
-## Unreleased ([0e7d013..790dcf6](https://github.com/gazorby/fifc/compare/0e7d013..790dcf6))
-#### 🚜 Refactor
-- improve detection of current dir completion - ([790dcf6](https://github.com/gazorby/fifc/commit/790dcf6cb43f54192e569e0c21a42bd462c159f0)) - [@gazorby](https://github.com/gazorby)
-
-#### 🤝️ Contributors
-- [@gazorby](https://github.com/gazorby)
-
-- - -
-## [v0.3.0](https://github.com/gazorby/fifc/compare/70c3019b282e0e7d12a5e6619c9a6eaa39f649ef..v0.3.0) - 2026-07-20
+## [v0.3.0](https://github.com/gazorby/fifc/compare/v0.2.4..v0.3.0) - 2026-07-20
 #### 🐛 Bug Fixes
 - add --no-ignore-vcs to fd when completing specific directory ([#79](https://github.com/gazorby/fifc/pull/79)) - ([6efb409](https://github.com/gazorby/fifc/commit/6efb4096f9ce7d33c6836926725f22f1e98b5ba3)) - [@gazorby](https://github.com/gazorby)
 #### 🚜 Refactor
@@ -16,7 +8,6 @@
 - [@gazorby](https://github.com/gazorby)
 
 - - -
-
 
 ## [v0.2.4](https://github.com/gazorby/fifc/compare/v0.2.3..v0.2.4) - 2026-07-18
 #### 🐛 Bug Fixes
@@ -71,13 +62,13 @@
 #### 🚀 Features
 - better fzf result navigation ([#72](https://github.com/gazorby/fifc/pull/72)) - ([397e171](https://github.com/gazorby/fifc/commit/397e171edbdc460e49f1c3cb5ac5cefe0e165e3b)) - [@gazorby](https://github.com/gazorby)
 #### 🐛 Bug Fixes
-- (**fifc**) fix command not found in preview - ([8ef00c6](https://github.com/gazorby/fifc/commit/8ef00c6d849dd54642113e5747e1f689e29370ed)) - [@command_block](https://github.com/command_block)
+- (**fifc**) fix command not found in preview - ([8ef00c6](https://github.com/gazorby/fifc/commit/8ef00c6d849dd54642113e5747e1f689e29370ed)) - [@Zh40Le1ZOOB](https://github.com/Zh40Le1ZOOB)
 - remove extra tab binding ([#61](https://github.com/gazorby/fifc/pull/61)) - ([5f3f5a8](https://github.com/gazorby/fifc/commit/5f3f5a8a96670fac032a923de7ec1602a132b31c)) - Maciej Piasecki
 - rule initialization - ([a01650c](https://github.com/gazorby/fifc/commit/a01650cd432becdc6e36feeff5e8d657bd7ee84a)) - [@gazorby](https://github.com/gazorby)
-- variables will die in fzf's fish, no erase needed - ([6681b51](https://github.com/gazorby/fifc/commit/6681b51d1a5e82eb87a919448a495dba49932bb6)) - [@phanium](https://github.com/phanium)
-- don't escape environment variable in completion - ([457cec0](https://github.com/gazorby/fifc/commit/457cec0bbdcc93d884729e7ccd2dc82a94caee59)) - [@phanium](https://github.com/phanium)
+- variables will die in fzf's fish, no erase needed - ([6681b51](https://github.com/gazorby/fifc/commit/6681b51d1a5e82eb87a919448a495dba49932bb6)) - [@phanen](https://github.com/phanen)
+- don't escape environment variable in completion - ([457cec0](https://github.com/gazorby/fifc/commit/457cec0bbdcc93d884729e7ccd2dc82a94caee59)) - [@phanen](https://github.com/phanen)
 #### ⚡ Performance
-- (**startup**) skip load of fifc rules when in interactive shell - ([64433fa](https://github.com/gazorby/fifc/commit/64433fa58b7d102f18eb2160d52ef706296cb585)) - [@phanium](https://github.com/phanium)
+- (**startup**) skip load of fifc rules when in interactive shell - ([64433fa](https://github.com/gazorby/fifc/commit/64433fa58b7d102f18eb2160d52ef706296cb585)) - [@phanen](https://github.com/phanen)
 #### 🚜 Refactor
 - replace exa with eza ([#70](https://github.com/gazorby/fifc/pull/70)) - ([220dbdc](https://github.com/gazorby/fifc/commit/220dbdc15352f67d6ad0bdf2175a280e186ca047)) - [@gazorby](https://github.com/gazorby)
 #### 📚 Documentation
@@ -99,9 +90,9 @@
 
 #### 🤝️ Contributors
 - Maciej Piasecki
-- [@command_block](https://github.com/command_block)
+- [@Zh40Le1ZOOB](https://github.com/Zh40Le1ZOOB)
 - [@gazorby](https://github.com/gazorby)
-- [@phanium](https://github.com/phanium)
+- [@phanen](https://github.com/phanen)
 
 - - -
 
@@ -118,7 +109,7 @@
 
 ## [v0.1.0](https://github.com/gazorby/fifc/compare/96dd5ab27cd91d6fe7f15753ee92253f2d4ba164..v0.1.0) - 2023-01-23
 #### 🚀 Features
-- use `$EDITOR` as default editor - ([8da1d3a](https://github.com/gazorby/fifc/commit/8da1d3af9f7929b0f743ebf8403a0a458b514cc3)) - [@Kid](https://github.com/Kid)
+- use `$EDITOR` as default editor - ([8da1d3a](https://github.com/gazorby/fifc/commit/8da1d3af9f7929b0f743ebf8403a0a458b514cc3)) - [@kidonng](https://github.com/kidonng)
 
 #### 🤝️ Contributors
-- [@Kid](https://github.com/Kid)
+- [@kidonng](https://github.com/kidonng)

@@ -10,6 +10,8 @@ actionlint = "latest"
 cocogitto = "latest"
 fd = "latest"
 fzf = "latest"
+jq = "latest"
+yq = "latest"
 
 [tasks."install"]
 description = "Install pre-commit hooks"
@@ -57,10 +59,36 @@ run = '''
     fishtape tests/**.fish
 '''
 
-[tasks.changelog]
-description = "Generate the changelog"
+[tasks."release:changelog"]
+description = "Print release notes for the latest tag"
 alias = "cl"
-run = "cog changelog"
+depends = ["release:authors:sync"]
+usage = '''
+arg "[cog_args]" var=#true var_min=0
+'''
+run = '''
+    cog changelog --at "$(git describe --tags --abbrev=0)" ${usage_cog_args:-}
+'''
+
+[tasks."release:bump"]
+description = "Resolve author handles, then bump the version and changelog"
+depends = ["release:authors:sync"]
+usage = '''
+arg "[cog_args]" var=#true var_min=0
+'''
+run = '''
+    cog bump --skip-untracked ${usage_cog_args:-}
+'''
+
+[tasks."release:authors:sync"]
+description = "Resolve GitHub usernames for commit authors into cog config"
+run = '''
+    gh api --paginate "repos/{owner}/{repo}/commits?per_page=100" \
+        --jq '.[] | [.commit.author.name, (.author.login // "")] | @tsv' \
+        | awk -F'\t' '$2 != "" && !seen[$1]++' \
+        | jq -R -s 'split("\n") | map(select(length > 0) | split("\t") | {signature: .[0], username: .[1]})' \
+        | yq -p toml -o toml -i '.changelog.authors = ((.changelog.authors + load("/dev/stdin")) | unique_by(.signature))' cog.toml
+'''
 
 [tasks."install:plugin:dev"]
 description = "Install fish plugin from the current folder"

@@ -36,10 +36,6 @@
     {%- if key not in seen -%}
         {%- set_global seen = seen | concat(with=key) -%}
         {%- set line = macros::remote(commit=commit) -%}
-        {#- Link an unmapped author's plain signature (no space) to their profile, mirroring the macro's mapped-author link -#}
-        {%- if not commit.author and repository_url and not (commit.signature is matching(" ")) -%}
-            {%- set line = line | replace(from=")) - " ~ commit.signature, to=")) - [@" ~ commit.signature ~ "](" ~ platform ~ "/" ~ commit.signature ~ ")") -%}
-        {%- endif -%}
         {#- Turn a trailing PR reference "(#123)" into a link to the pull request -#}
         {%- if repository_url and commit.summary is matching("\(#\d+\)$") -%}
             {%- set num = commit.summary | split(pat="(#") | last | trim_end_matches(pat=")") -%}
@@ -49,25 +45,19 @@
 {% endif -%}
 {% endfor -%}
 {% endfor -%}
-{#- Collect unique contributors: mapped authors, unmapped spaceless signatures, and co-authors, linked when possible -#}
+{#- Collect unique contributors. Only a cog.toml-mapped author yields a GitHub username; an unmapped git signature is a display name (not a handle), so render it plain. -#}
 {% set_global contributors = [] -%}
 {% for commit in commits -%}
     {%- if commit.author -%}
         {%- set_global contributors = contributors | concat(with="[@" ~ commit.author ~ "](" ~ platform ~ "/" ~ commit.author ~ ")") -%}
-    {%- elif commit.signature is matching(" ") -%}
-        {%- set_global contributors = contributors | concat(with=commit.signature) -%}
     {%- else -%}
-        {%- set_global contributors = contributors | concat(with="[@" ~ commit.signature ~ "](" ~ platform ~ "/" ~ commit.signature ~ ")") -%}
+        {%- set_global contributors = contributors | concat(with=commit.signature) -%}
     {%- endif -%}
     {%- for footer in commit.footers -%}
         {%- if footer.github_co_authored_by and footer.github_co_authored_by.username -%}
             {%- set_global contributors = contributors | concat(with="[@" ~ footer.github_co_authored_by.username ~ "](" ~ platform ~ "/" ~ footer.github_co_authored_by.username ~ ")") -%}
         {%- elif footer.github_co_authored_by and footer.github_co_authored_by.user -%}
-            {%- if footer.github_co_authored_by.user is matching(" ") -%}
-                {%- set_global contributors = contributors | concat(with=footer.github_co_authored_by.user) -%}
-            {%- else -%}
-                {%- set_global contributors = contributors | concat(with="[@" ~ footer.github_co_authored_by.user ~ "](" ~ platform ~ "/" ~ footer.github_co_authored_by.user ~ ")") -%}
-            {%- endif -%}
+            {%- set_global contributors = contributors | concat(with=footer.github_co_authored_by.user) -%}
         {%- endif -%}
     {%- endfor -%}
 {%- endfor -%}
