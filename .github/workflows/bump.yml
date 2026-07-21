@@ -34,9 +34,9 @@ jobs:
       - name: Bump version and changelog
         run: >
           mise run release:bump --
-            --hook-profile ci
-            --skip-ci
-            ${{ github.event.inputs.releaseType == 'auto' && '--auto' || format('--{0}', github.event.inputs.releaseType) }}
+          --hook-profile ci
+          --skip-ci
+          --${{ github.event.inputs.releaseType == 'auto' && 'auto' || github.event.inputs.releaseType }}
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}

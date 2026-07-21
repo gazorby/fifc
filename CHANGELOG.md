@@ -1,16 +1,18 @@
-## [v0.3.0](https://github.com/gazorby/fifc/compare/v0.2.4..v0.3.0) - 2026-07-20
-#### 🐛 Bug Fixes
-- add --no-ignore-vcs to fd when completing specific directory ([#79](https://github.com/gazorby/fifc/pull/79)) - ([6efb409](https://github.com/gazorby/fifc/commit/6efb4096f9ce7d33c6836926725f22f1e98b5ba3)) - [@gazorby](https://github.com/gazorby)
-#### 🚜 Refactor
-- improve detection of current dir completion ([#78](https://github.com/gazorby/fifc/pull/78)) - ([70c3019](https://github.com/gazorby/fifc/commit/70c3019b282e0e7d12a5e6619c9a6eaa39f649ef)) - [@gazorby](https://github.com/gazorby)
+- - -
+## [v0.3.1](https://github.com/gazorby/fifc/compare/a5a10541f409ba35a74de86e97c79078a49f377f..v0.3.1) - 2026-07-21
+#### ⚙️ Miscellaneous Tasks
+- (**changelog**) resolve github usernames before bump - ([a5a1054](https://github.com/gazorby/fifc/commit/a5a10541f409ba35a74de86e97c79078a49f377f)) - [@gazorby](https://github.com/gazorby)
 
 #### 🤝️ Contributors
 - [@gazorby](https://github.com/gazorby)
 
 - - -
-## [v0.3.1](https://github.com/gazorby/fifc/compare/a5a10541f409ba35a74de86e97c79078a49f377f..v0.3.1) - 2026-07-21
-#### ⚙️ Miscellaneous Tasks
-- (**changelog**) resolve github usernames before bump - ([a5a1054](https://github.com/gazorby/fifc/commit/a5a10541f409ba35a74de86e97c79078a49f377f)) - [@gazorby](https://github.com/gazorby)
+
+## [v0.3.0](https://github.com/gazorby/fifc/compare/v0.2.4..v0.3.0) - 2026-07-20
+#### 🐛 Bug Fixes
+- add --no-ignore-vcs to fd when completing specific directory ([#79](https://github.com/gazorby/fifc/pull/79)) - ([6efb409](https://github.com/gazorby/fifc/commit/6efb4096f9ce7d33c6836926725f22f1e98b5ba3)) - [@gazorby](https://github.com/gazorby)
+#### 🚜 Refactor
+- improve detection of current dir completion ([#78](https://github.com/gazorby/fifc/pull/78)) - ([70c3019](https://github.com/gazorby/fifc/commit/70c3019b282e0e7d12a5e6619c9a6eaa39f649ef)) - [@gazorby](https://github.com/gazorby)
 
 #### 🤝️ Contributors
 - [@gazorby](https://github.com/gazorby)
