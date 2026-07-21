@@ -1,4 +1,16 @@
 - - -
+## [v0.3.3](https://github.com/gazorby/fifc/compare/d77bcaa837ea80f5fbd3312e0b83ecc4fdd55e0b..v0.3.3) - 2026-07-21
+#### ⚙️ Miscellaneous Tasks
+- (**ci**) fix quotes - ([040e921](https://github.com/gazorby/fifc/commit/040e92188e881f81677d806bccd634eb1da85dea)) - gazorby
+- (**ci**) annotate tags - ([9e1081c](https://github.com/gazorby/fifc/commit/9e1081c129e56412d0e1bc5fcb4dcaa4f109a0bc)) - gazorby
+- (**ci**) update pr labeler config - ([d77bcaa](https://github.com/gazorby/fifc/commit/d77bcaa837ea80f5fbd3312e0b83ecc4fdd55e0b)) - gazorby
+- (**cog**) restore cog.toml in post bump hook, before git push - ([d9a9ee0](https://github.com/gazorby/fifc/commit/d9a9ee0e063abc8b6749799f5082ee50d51b345a)) - gazorby
+
+#### 🤝️ Contributors
+- gazorby
+
+- - -
+
 ## [v0.3.2](https://github.com/gazorby/fifc/compare/554b230f99f602ff3a54d502599e2a25429b377a..v0.3.2) - 2026-07-21
 #### ⚙️ Miscellaneous Tasks
 - (**ci**) fix indentation - ([554b230](https://github.com/gazorby/fifc/commit/554b230f99f602ff3a54d502599e2a25429b377a)) - [@github-actions[bot]](https://github.com/github-actions[bot])

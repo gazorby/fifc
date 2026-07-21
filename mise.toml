@@ -67,7 +67,7 @@ usage = '''
 arg "[cog_args]" var=#true var_min=0
 '''
 run = '''
-    cog changelog --at "$(git describe --tags --abbrev=0)" ${usage_cog_args:-}
+    eval "cog changelog --at \"$(git describe --tags --abbrev=0)\" ${usage_cog_args:-}"
 '''
 
 [tasks."release:bump"]
@@ -77,7 +77,7 @@ usage = '''
 arg "[cog_args]" var=#true var_min=0
 '''
 run = '''
-    cog bump --skip-untracked ${usage_cog_args:-}
+    eval "cog bump --skip-untracked ${usage_cog_args:-}"
 '''
 
 [tasks."release:authors:sync"]
