@@ -7,17 +7,14 @@ labels:
   - label: 'feat'
     matcher:
       title: "^feat(\\([^()\\r\\n]*\\))?:.*"
-      commits: "^feat(\\([^()\\r\\n]*\\))?:.*"
 
   - label: 'fix'
     matcher:
       title: "^fix(\\([^()\\r\\n]*\\))?:.*"
-      commits: "^fix(\\([^()\\r\\n]*\\))?:.*"
 
   - label: 'chore'
     matcher:
       title: "^chore(\\([^()\\r\\n]*\\))?:.*"
-      commits: "^chore(\\([^()\\r\\n]*\\))?:.*"
 
   - label: 'chore'
     matcher:
@@ -26,12 +23,10 @@ labels:
   - label: 'docs'
     matcher:
       title: "^docs(\\([^()\\r\\n]*\\))?:.*"
-      commits: "^docs(\\([^()\\r\\n]*\\))?:.*"
 
   - label: 'perf'
     matcher:
       title: "^perf(\\([^()\\r\\n]*\\))?:.*"
-      commits: "^perf(\\([^()\\r\\n]*\\))?:.*"
 
   # Bots
 
