@@ -73,7 +73,7 @@ description = "Resolve author handles, then bump the version and changelog"
 depends = ["release:authors:sync"]
 run = '''
     #!/usr/bin/env bash
-    cog bump --skip-untracked --annotated "{% raw %}bump from {{version}} to {{latest}}{% endraw %}" "$@"
+    cog bump --skip-untracked --annotated "{% raw %}bump from {{latest}} to {{version}}{% endraw %}" "$@"
 '''
 
 [tasks."release:authors:sync"]
