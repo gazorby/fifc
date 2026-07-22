@@ -32,7 +32,6 @@ pre_bump_hooks = [
   "git config user.email 'github-actions[bot]@users.noreply.github.com'"
 ]
 post_bump_hooks = [
-  "git restore cog.toml",
   "git push",
   "git push origin {{version_tag}}"
 ]

@@ -63,26 +63,23 @@ run = '''
 description = "Print release notes for the latest tag"
 alias = "cl"
 depends = ["release:authors:sync"]
-usage = '''
-arg "[cog_args]" var=#true var_min=0
-'''
 run = '''
-    eval "cog changelog --at \"$(git describe --tags --abbrev=0)\" ${usage_cog_args:-}"
+    #!/usr/bin/env bash
+    cog changelog --at "$(git describe --tags --abbrev=0)" "$@"
 '''
 
 [tasks."release:bump"]
 description = "Resolve author handles, then bump the version and changelog"
 depends = ["release:authors:sync"]
-usage = '''
-arg "[cog_args]" var=#true var_min=0
-'''
 run = '''
-    eval "cog bump --skip-untracked ${usage_cog_args:-}"
+    #!/usr/bin/env bash
+    cog bump --skip-untracked --annotated "{% raw %}bump from {{version}} to {{latest}}{% endraw %}" "$@"
 '''
 
 [tasks."release:authors:sync"]
 description = "Resolve GitHub usernames for commit authors into cog config"
 run = '''
+    #!/usr/bin/env bash
     gh api --paginate "repos/{owner}/{repo}/commits?per_page=100" \
         --jq '.[] | [.commit.author.name, (.author.login // "")] | @tsv' \
         | awk -F'\t' '$2 != "" && !seen[$1]++' \
