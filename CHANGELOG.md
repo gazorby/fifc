@@ -1,4 +1,8 @@
 - - -
+## [v0.3.4](https://github.com/gazorby/fifc/compare/d9e3ec514e8b7ab984e0eddae8112971959c471e..v0.3.4) - 2026-07-22
+
+- - -
+
 ## [v0.3.3](https://github.com/gazorby/fifc/compare/d77bcaa837ea80f5fbd3312e0b83ecc4fdd55e0b..v0.3.3) - 2026-07-21
 #### ⚙️ Miscellaneous Tasks
 - (**ci**) fix quotes - ([040e921](https://github.com/gazorby/fifc/commit/040e92188e881f81677d806bccd634eb1da85dea)) - gazorby

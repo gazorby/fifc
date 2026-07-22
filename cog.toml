@@ -11,6 +11,45 @@ template = ".github/changelog.tera"
 remote = "github.com"
 owner = "gazorby"
 repository = "fifc"
+[[changelog.authors]]
+signature = "github-actions[bot]"
+username = "github-actions[bot]"
+[[changelog.authors]]
+signature = "gazorby"
+username = "gazorby"
+[[changelog.authors]]
+signature = "Matthieu"
+username = "gazorby"
+[[changelog.authors]]
+signature = "justbispo"
+username = "justbispo"
+[[changelog.authors]]
+signature = "ollehu"
+username = "ollehu"
+[[changelog.authors]]
+signature = "renovate[bot]"
+username = "renovate[bot]"
+[[changelog.authors]]
+signature = "HydroH"
+username = "HydroH"
+[[changelog.authors]]
+signature = "Maciej Piasecki"
+username = "PiasekDev"
+[[changelog.authors]]
+signature = "Simon Mullis"
+username = "simonm"
+[[changelog.authors]]
+signature = "Matthieu MN"
+username = "gazorby"
+[[changelog.authors]]
+signature = "phanium"
+username = "phanen"
+[[changelog.authors]]
+signature = "command_block"
+username = "Zh40Le1ZOOB"
+[[changelog.authors]]
+signature = "Kid"
+username = "kidonng"
 
 [commit_types]
 feat = { changelog_title = "🚀 Features", order = 1 }
@@ -25,13 +64,6 @@ ci = { changelog_title = "⚙️ Miscellaneous Tasks", order = 7 }
 style = { changelog_title = "🎨 Styling", order = 8 }
 chore = { omit_from_changelog = true }
 test = { omit_from_changelog = true }
-
 [bump_profiles.ci]
-pre_bump_hooks = [
-  "git config user.name 'github-actions[bot]'",
-  "git config user.email 'github-actions[bot]@users.noreply.github.com'"
-]
-post_bump_hooks = [
-  "git push",
-  "git push origin {{version_tag}}"
-]
+pre_bump_hooks = ["git config user.name 'github-actions[bot]'", "git config user.email 'github-actions[bot]@users.noreply.github.com'"]
+post_bump_hooks = ["git push", "git push origin {{version_tag}}"]
