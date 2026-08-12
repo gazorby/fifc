@@ -17,8 +17,10 @@ if status is-interactive
     set -qU fifc_custom_fzf_opts
     or set -U fifc_custom_fzf_opts
 
-    for mode in default insert
-        bind --mode $mode $fifc_keybinding _fifc
+    function _fifc_fish_key_bindings --on-variable fish_key_bindings
+        for mode in default insert
+            bind --mode $mode $fifc_keybinding _fifc
+        end
     end
 
     # Set sources rules
@@ -67,4 +69,5 @@ end
 
 # Fisher
 function _fifc_uninstall --on-event fifc_uninstall
+    function --earse _fifc_fish_key_bindings; end
 end
