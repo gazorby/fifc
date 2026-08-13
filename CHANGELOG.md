@@ -1,3 +1,7 @@
+# Changelog
+
+All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
+
 - - -
 ## [v0.3.4](https://github.com/gazorby/fifc/compare/d9e3ec514e8b7ab984e0eddae8112971959c471e..v0.3.4) - 2026-07-22
 
